@@ -1,0 +1,17 @@
+@import 'styles/text.module.scss';
+
+.container{
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    flex-direction: column;
+}
+
+.titlePage{
+    font: $title;
+}
+
+.icon{
+    height: 24px;
+    width: 24px;
+}
