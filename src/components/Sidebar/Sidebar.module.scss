@@ -1,0 +1,33 @@
+@import 'styles/color.module.scss';
+@import 'styles/text.module.scss';
+
+.container{
+    min-width: 275px;
+    background-color: $nav-bar;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 48px;
+}
+
+.header{
+    padding-top: 20px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.text{
+    font: $text;
+}
+
+.title{
+    font: $title;
+}
+
+.logo{
+    width: 30px;
+    height: 30px;
+
+}
