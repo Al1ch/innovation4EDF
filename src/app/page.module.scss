@@ -1,0 +1,20 @@
+@import 'styles/text.module.scss';
+.container{
+    width: 100%;
+    background-color: white;
+    color: rgba(0, 0, 0, 0.897);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 32px;
+}
+
+.header{
+    width: 100%;
+    border-bottom: 2px solid #f9f9fb;
+    padding-bottom: 24px;
+}
+
+
+
