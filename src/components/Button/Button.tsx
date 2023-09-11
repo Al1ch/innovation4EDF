@@ -7,9 +7,9 @@ type Props = ComponentPropsWithoutRef<"button"> & {
   children: React.ReactNode;
 };
 
-const Button = ({ children }: Props) => {
+const Button = ({ children, ...props }: Props) => {
   return (
-    <button className={styles.container}>
+    <button className={styles.container} {...props}>
       <span className={styles.link}>{children}</span>
     </button>
   );

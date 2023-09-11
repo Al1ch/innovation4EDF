@@ -1,15 +1,22 @@
 .container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     padding: 12px;
     border-radius: 8px;
     min-width: 200px;
     border: none;
     cursor: pointer;
-    background-color:#323dcc ;
+    color: white;
+    background-color:#098eec ;
+}
+
+.container:disabled{
+    background-color: #d6d6d6;
+    cursor: not-allowed;
 }
 
 .link{
-    width: 100%;
-    height: 100%;
     display: flex;
     align-items: center;
     gap: 8px;

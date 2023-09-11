@@ -1,10 +1,8 @@
 .container{
-    min-width: 400px;
-    background-color: #f4f3f9;
-    border: 2px dashed #d6d6d6fb;
-    min-height: 400px;
     color: black;
     display: flex;
+    flex-direction: column;
+    gap: 32px;
     align-items: center;
 }
 
@@ -18,8 +16,10 @@
 }
 
 .label{
-    height: 100%;
-    width: 100%;
+    background-color: #f4f3f9;
+    border: 2px dashed #d6d6d6fb;
+    min-height: 400px;
+    min-width: 400px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -27,6 +27,10 @@
     gap: 32px;
     color: #aca9a9;
     padding: 32px;
+    &:hover{
+        background-color: #eceaeafb;
+        transition: ease-in-out 0.2s;
+    }
 }
 
 .text{
@@ -36,5 +40,12 @@
 .icon{
     height: 48px;
     width:48px;
+}
+
+.listFiles{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
 }
 

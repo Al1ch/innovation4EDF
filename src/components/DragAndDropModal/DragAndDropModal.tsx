@@ -29,9 +29,7 @@ const DragAndDropModal = () => {
               justifyContent: "flex-end",
             }}
           >
-            <Dialog.Close asChild>
-              <button className="Button green">Save changes</button>
-            </Dialog.Close>
+            <Dialog.Close asChild></Dialog.Close>
           </div>
           <Dialog.Close asChild>
             <button className="IconButton" aria-label="Close">

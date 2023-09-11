@@ -79,14 +79,14 @@ input {
   box-shadow: 0 0 0 2px black;
 }
 .Button.green {
-  background-color: var(--green-4);
-  color: var(--green-11);
+  background-color: #098eec;
+  color: white;
 }
 .Button.green:hover {
-  background-color: var(--green-5);
+  background-color: #067acc;
 }
 .Button.green:focus {
-  box-shadow: 0 0 0 2px var(--green-7);
+  box-shadow: 0 0 0 2px #067acc;
 }
 
 .IconButton {
