@@ -1,21 +1,24 @@
 "use client";
 
-import React, { ComponentPropsWithoutRef, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import styles from "./DragDrop.module.scss";
 import UploadIcon from "@/assets/vectors/upload.svg";
 import Button from "../Button/Button";
 import FileIcon from "@/assets/vectors/file.svg";
-
-type Props = ComponentPropsWithoutRef<"input"> & {
-  children: React.ReactNode;
-};
+import { addFileData } from "@/app/_action";
+import { FileFormat } from "@/model";
 
 const DragDrop = () => {
-  const [filesInput, setFilesInput] = useState<File[]>([]);
+  const [filesInput, setFilesInput] = useState<FileFormat[]>([]);
   const formRef = useRef<HTMLFormElement>(null);
 
-  const handleSubmit = (data: FormData) => {
-    console.log("STATE", filesInput);
+  const handleSubmit = () => {
+    filesInput.forEach((file) => {
+      console.log("FILE", file);
+      addFileData(file);
+    });
+    console.log("FILESIPUT", filesInput);
+    setFilesInput([]);
     formRef.current?.reset();
   };
 
@@ -27,7 +30,11 @@ const DragDrop = () => {
   const handleDrop = (event: React.DragEvent<HTMLFormElement>) => {
     console.log("FILES", event.dataTransfer.files);
     event.stopPropagation();
-    const files = Array.from(event.dataTransfer.files);
+    const files = Array.from(event.dataTransfer.files).map((file) => ({
+      name: file.name,
+      type: file.type,
+      size: file.size,
+    }));
     setFilesInput([...filesInput, ...files]);
     event.preventDefault();
   };

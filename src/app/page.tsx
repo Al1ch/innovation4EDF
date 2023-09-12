@@ -1,7 +1,5 @@
-import Image from "next/image";
 import styles from "./page.module.scss";
 import SearchBar from "@/components/SearchBar/SearchBar";
-import DragAndDropField from "@/components/DragAndDropModal/DragAndDropModal";
 
 export default function Home() {
   return (
