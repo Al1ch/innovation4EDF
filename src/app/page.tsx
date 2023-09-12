@@ -1,5 +1,6 @@
 import styles from "./page.module.scss";
 import SearchBar from "@/components/SearchBar/SearchBar";
+import FileListSection from "@/components/FilesListSection/FileListSection";
 
 export default function Home() {
   return (
@@ -7,7 +8,7 @@ export default function Home() {
       <div className={styles.header}>
         <SearchBar />
       </div>
-      <div className={styles.body}></div>
+      <FileListSection />
     </div>
   );
 }

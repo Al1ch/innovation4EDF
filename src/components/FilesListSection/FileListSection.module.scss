@@ -1,0 +1,40 @@
+@import "styles/color.module.scss";
+@import "styles/text.module.scss";
+
+.container{
+    width: 100%;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.icon{
+    height: 14px;
+    width:14px;
+    transform: rotate(180deg);
+}
+
+.titleCol{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: $text;
+    font: $details;
+
+}
+
+.headerList{
+    display: grid;
+    align-items: center;
+    grid-template-columns: 2fr 2fr;
+    width: 100%;
+    gap: 16px;
+    padding: 8px 16px;
+    margin-top: 32px;
+
+}
+
+.secondaryInfo{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}

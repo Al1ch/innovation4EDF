@@ -14,10 +14,8 @@ const DragDrop = () => {
 
   const handleSubmit = () => {
     filesInput.forEach((file) => {
-      console.log("FILE", file);
       addFileData(file);
     });
-    console.log("FILESIPUT", filesInput);
     setFilesInput([]);
     formRef.current?.reset();
   };
@@ -28,7 +26,6 @@ const DragDrop = () => {
   };
 
   const handleDrop = (event: React.DragEvent<HTMLFormElement>) => {
-    console.log("FILES", event.dataTransfer.files);
     event.stopPropagation();
     const files = Array.from(event.dataTransfer.files).map((file) => ({
       name: file.name,

@@ -1,0 +1,40 @@
+@import 'styles/text.module.scss';
+@import 'styles/color.module.scss';
+
+.container{
+    display: grid;
+    align-items: center;
+    grid-template-columns: 2fr 2fr;
+    width: 100%;
+    padding: 16px;
+    gap: 16px;
+    border-top: 2px solid $border;
+}
+
+.mainInfoFile{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.infoContainer{
+    display: grid;
+    gap: 16px;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.icon{
+    height: 28px;
+    width:28px;
+}
+
+
+
+.name{
+    font: $info;
+}
+
+.details{
+    font:$details;
+    color: $text;
+}
