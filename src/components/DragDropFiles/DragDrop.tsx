@@ -7,14 +7,18 @@ import Button from "../Button/Button";
 import FileIcon from "@/assets/vectors/file.svg";
 import { addFileData } from "@/app/_action";
 import { FileFormat } from "@/model";
+import { usePathname } from "next/navigation";
+import { DialogClose } from "@radix-ui/react-dialog";
 
 const DragDrop = () => {
   const [filesInput, setFilesInput] = useState<FileFormat[]>([]);
   const formRef = useRef<HTMLFormElement>(null);
 
+  const pathName = usePathname();
+
   const handleSubmit = () => {
     filesInput.forEach((file) => {
-      addFileData(file);
+      addFileData(file, pathName);
     });
     setFilesInput([]);
     formRef.current?.reset();
@@ -30,7 +34,7 @@ const DragDrop = () => {
     const files = Array.from(event.dataTransfer.files).map((file) => ({
       name: file.name,
       type: file.type,
-      size: file.size,
+      size: file.size / (1024 * 1024),
     }));
     setFilesInput([...filesInput, ...files]);
     event.preventDefault();

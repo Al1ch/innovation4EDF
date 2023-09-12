@@ -2,8 +2,11 @@ import React from "react";
 import styles from "./FileListSection.module.scss";
 import FileDetails from "../FileDetails/FileDetails";
 import TriangleIcon from "@/assets/vectors/triangle.svg";
+import prisma from "../../../lib/prisma";
 
-const FileListSection = () => {
+const FileListSection = async () => {
+  const filesList = await prisma.file.findMany();
+
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>Files List</h2>
@@ -23,7 +26,9 @@ const FileListSection = () => {
           </span>
         </div>
       </div>
-      <FileDetails />
+      {filesList.map((file) => (
+        <FileDetails key={file.id} {...file} />
+      ))}
     </div>
   );
 };

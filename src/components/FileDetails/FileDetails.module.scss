@@ -19,6 +19,7 @@
 
 .infoContainer{
     display: grid;
+    align-items: center;
     gap: 16px;
     grid-template-columns: 1fr 1fr 1fr;
 }
