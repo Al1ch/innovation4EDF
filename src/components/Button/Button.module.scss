@@ -4,11 +4,21 @@
     align-items: center;
     padding: 12px;
     border-radius: 8px;
-    min-width: 200px;
     border: none;
     cursor: pointer;
     color: white;
-    background-color:#098eec ;
+    &.sm{
+        min-width: 75px;
+    }
+    &.md{
+        min-width: 200px;
+    }
+    &.blue{
+        background-color: #1e90ff;
+    }
+    &.white{
+        background-color: #1e90ff;
+    }
 }
 
 .container:disabled{
