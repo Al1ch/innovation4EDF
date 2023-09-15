@@ -21,12 +21,16 @@
     display: grid;
     align-items: center;
     gap: 16px;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 10px;
 }
 
 .icon{
     height: 28px;
     width:28px;
+    &:hover{
+        fill: rgba(233, 44, 44, 0.884);
+    }
+    margin-right: 20px;
 }
 
 

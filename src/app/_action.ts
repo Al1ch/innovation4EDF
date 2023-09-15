@@ -1,6 +1,6 @@
 'use server';
 import { revalidatePath } from "next/cache";
-import { addFile } from "../../lib/files";
+import { addFile, deleteFile } from "../../lib/files";
 import { FileFormat } from "@/model"
 
 export const addFileData = async (file : FileFormat, pathName: string) => {
@@ -13,3 +13,15 @@ export const addFileData = async (file : FileFormat, pathName: string) => {
         return {error:e}
     }
 }
+
+export const deleteFileData = async (fileId: number, pathName: string) => {
+    try{
+        await deleteFile(fileId);
+        revalidatePath(pathName)
+    }
+    catch(e){  
+        return {error:e}
+    }
+}
+
+

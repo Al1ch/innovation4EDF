@@ -8,10 +8,12 @@ import FileIcon from "@/assets/vectors/file.svg";
 import { addFileData } from "@/app/_action";
 import { FileFormat } from "@/model";
 import { usePathname } from "next/navigation";
-import { DialogClose } from "@radix-ui/react-dialog";
+import * as pdfjs from "pdfjs-dist";
 
 const DragDrop = () => {
   const [filesInput, setFilesInput] = useState<FileFormat[]>([]);
+  const [textFile, setTextFile] = useState<string>();
+
   const formRef = useRef<HTMLFormElement>(null);
 
   const pathName = usePathname();
@@ -24,6 +26,37 @@ const DragDrop = () => {
     formRef.current?.reset();
   };
 
+  const extractFileFromDoc = async (file: File) => {
+    try {
+      const reader = new FileReader();
+
+      reader.onload = async (e) => {
+        const arrayBuffer = e.target?.result;
+        const pdfData = new Uint8Array(arrayBuffer as ArrayBuffer);
+        const pdf = await pdfjs.getDocument(pdfData).promise;
+        let pdfText = "";
+        for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+          const page = await pdf.getPage(pageNum);
+          const pageText = await page.getTextContent();
+
+          pageText.items.forEach((textItem) => {
+            if ("str" in textItem) {
+              pdfText += textItem.str;
+            }
+          });
+        }
+        setTextFile(pdfText);
+      };
+
+      reader.readAsArrayBuffer(file);
+    } catch (error) {
+      console.error(
+        "Une erreur s'est produite lors de l'extraction du texte du PDF :",
+        error
+      );
+    }
+  };
+
   const handleDrag = (event: React.DragEvent<HTMLFormElement>) => {
     event.preventDefault();
     event.stopPropagation();
@@ -31,10 +64,11 @@ const DragDrop = () => {
 
   const handleDrop = (event: React.DragEvent<HTMLFormElement>) => {
     event.stopPropagation();
+    extractFileFromDoc(event.dataTransfer.files[0]);
     const files = Array.from(event.dataTransfer.files).map((file) => ({
       name: file.name,
       type: file.type,
-      size: file.size / (1024 * 1024),
+      size: file.size,
     }));
     setFilesInput([...filesInput, ...files]);
     event.preventDefault();

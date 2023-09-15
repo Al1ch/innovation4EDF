@@ -28,3 +28,15 @@ export const getFiles = async () => {
 
     }
 }
+
+export const deleteFile = async(fileId:number)=>{
+    try{
+        await prisma.file.delete({
+            where:{
+                id:fileId
+            }
+        })
+    }catch(e){
+        return {error:e}
+    }
+}

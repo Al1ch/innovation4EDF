@@ -1,15 +1,24 @@
 import React from "react";
 import styles from "./FileDetails.module.scss";
 import FileIcon from "@/assets/vectors/file.svg";
+import Button from "../Button/Button";
+import TrashIcon from "@/assets/vectors/trash.svg";
+import { deleteFileData } from "@/app/_action";
 
 type Props = {
+  id: number;
   name: string;
   type: string;
   size: number;
   updatedAt: Date;
 };
 
-const FileDetails = ({ name, type, size, updatedAt }: Props) => {
+const FileDetails = ({ name, type, size, updatedAt, id }: Props) => {
+  const handleDelete = async (fileId: number, pathName: string) => {
+    "use server";
+    await deleteFileData(fileId, pathName);
+  };
+
   const getCorrectTimeFormat = (time?: number) => {
     if (!time) return;
     if (time < 10) {
@@ -41,6 +50,9 @@ const FileDetails = ({ name, type, size, updatedAt }: Props) => {
             {getCorrectTimeFormat(updatedAt.getSeconds())}
           </span>
         </div>
+        <Button handleClick={handleDelete} size="sm">
+          <TrashIcon className={styles.icon} />
+        </Button>
       </div>
     </div>
   );
