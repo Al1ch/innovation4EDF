@@ -1,18 +1,21 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-
-	webpack(config, _options) {
-		config.module.rules.push({
-			test: /\.svg$/,
-			use: ['@svgr/webpack'],
-		},
-		);
-
-		return config;
+	webpack(config, options) {
+	  // Ajoutez la règle pour les fichiers SVG
+	  config.module.rules.push({
+		test: /\.svg$/,
+		use: ['@svgr/webpack'],
+	  });
+  
+	  // Ajoutez "canvas" aux externals
+	  config.externals.push('canvas');
+  
+	  return config;
 	},
 	experimental: {
-		serverActions: true,
-	  },
-}
-
-module.exports = nextConfig
+	  serverActions: true,
+	},
+  };
+  
+  module.exports = nextConfig;
+  
