@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./DragDrop.module.scss";
 import UploadIcon from "@/assets/vectors/upload.svg";
 import Button from "../Button/Button";
@@ -10,16 +10,51 @@ import { FileFormat } from "@/model";
 import { usePathname } from "next/navigation";
 import * as pdfjs from "pdfjs-dist";
 
+pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.10.111/pdf.worker.js
+
+`;
+
 const DragDrop = () => {
   const [filesInput, setFilesInput] = useState<FileFormat[]>([]);
   const [textFile, setTextFile] = useState<string>();
-
+  const [extractedFiles, setExtractedFile] = useState<File>();
   const formRef = useRef<HTMLFormElement>(null);
+
+  const getSecurityTypeOfFile = (text: string) => {
+    const regexs = [
+      { regex: /(?=.*prénom)(?=.*nom)(?=.*numéro)/i, type: "private" },
+      { regex: /(?=.*Chiffre d'affaire)(?=.*Siret)/i, type: "business" },
+    ];
+    let type = "";
+    for (const regex of regexs) {
+      if (regex.regex.test(text)) {
+        type = regex.type;
+        break;
+      }
+    }
+    console.log("TYPE", type);
+    return type;
+  };
+
+  useEffect(() => {
+    if (textFile && extractedFiles) {
+      const type = getSecurityTypeOfFile(textFile);
+      const files = {
+        name: extractedFiles?.name,
+        type: type,
+        size: extractedFiles?.size,
+      };
+
+      setFilesInput([...filesInput, files]);
+      setExtractedFile(undefined);
+    }
+  }, [textFile, extractedFiles, filesInput]);
 
   const pathName = usePathname();
 
   const handleSubmit = () => {
     filesInput.forEach((file) => {
+      console.log("FILE", file);
       addFileData(file, pathName);
     });
     setFilesInput([]);
@@ -31,10 +66,12 @@ const DragDrop = () => {
       const reader = new FileReader();
 
       reader.onload = async (e) => {
+        let pdfText = "";
+
         const arrayBuffer = e.target?.result;
         const pdfData = new Uint8Array(arrayBuffer as ArrayBuffer);
         const pdf = await pdfjs.getDocument(pdfData).promise;
-        let pdfText = "";
+
         for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
           const page = await pdf.getPage(pageNum);
           const pageText = await page.getTextContent();
@@ -45,7 +82,9 @@ const DragDrop = () => {
             }
           });
         }
+        console.log("PDF text", pdfText);
         setTextFile(pdfText);
+        console.log("AFTER");
       };
 
       reader.readAsArrayBuffer(file);
@@ -62,15 +101,11 @@ const DragDrop = () => {
     event.stopPropagation();
   };
 
-  const handleDrop = (event: React.DragEvent<HTMLFormElement>) => {
+  const handleDrop = async (event: React.DragEvent<HTMLFormElement>) => {
     event.stopPropagation();
-    extractFileFromDoc(event.dataTransfer.files[0]);
-    const files = Array.from(event.dataTransfer.files).map((file) => ({
-      name: file.name,
-      type: file.type,
-      size: file.size,
-    }));
-    setFilesInput([...filesInput, ...files]);
+    setExtractedFile(event.dataTransfer.files[0]);
+    await extractFileFromDoc(event.dataTransfer.files[0]);
+
     event.preventDefault();
   };
 

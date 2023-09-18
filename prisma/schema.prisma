@@ -17,5 +17,6 @@ model File {
   updatedAt DateTime @updatedAt
   url       String
   size      Int
+  format    String
   type      String
 }
