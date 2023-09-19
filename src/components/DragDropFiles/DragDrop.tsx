@@ -10,9 +10,7 @@ import { FileFormat } from "@/model";
 import { usePathname } from "next/navigation";
 import * as pdfjs from "pdfjs-dist";
 
-pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.10.111/pdf.worker.js
-
-`;
+pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.10.111/pdf.worker.js`;
 
 const DragDrop = () => {
   const [filesInput, setFilesInput] = useState<FileFormat[]>([]);
@@ -23,7 +21,7 @@ const DragDrop = () => {
   const getSecurityTypeOfFile = (text: string) => {
     const regexs = [
       { regex: /(?=.*prénom)(?=.*nom)(?=.*numéro)/i, type: "private" },
-      { regex: /(?=.*Chiffre d'affaire)(?=.*Siret)/i, type: "business" },
+      { regex: /(?=.*CA)(?=.*Siret)/, type: "business" },
     ];
     let type = "";
     for (const regex of regexs) {
