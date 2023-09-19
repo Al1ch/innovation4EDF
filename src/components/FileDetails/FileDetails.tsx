@@ -11,9 +11,10 @@ type Props = {
   type: string;
   size: number;
   updatedAt: Date;
+  format: string;
 };
 
-const FileDetails = ({ name, type, size, updatedAt, id }: Props) => {
+const FileDetails = ({ name, type, size, updatedAt, format }: Props) => {
   const handleDelete = async (fileId: number, pathName: string) => {
     "use server";
     await deleteFileData(fileId, pathName);
@@ -35,19 +36,20 @@ const FileDetails = ({ name, type, size, updatedAt, id }: Props) => {
       </div>
       <div className={styles.infoContainer}>
         <div className={styles.type}>
-          <span className={styles.details}>{type.split("/")[1]}</span>
+          <span className={styles.details}>{format.split("/")[1]}</span>
         </div>
         <div className={styles.size}>
           <span className={styles.details}>{size}MB</span>
         </div>
         <div className={styles.date}>
           <span className={styles.details}>
-            {getCorrectTimeFormat(updatedAt.getDay())}/
+            {/* {getCorrectTimeFormat(updatedAt.getDay())}/
             {getCorrectTimeFormat(updatedAt.getMonth())}/
             {updatedAt.getFullYear()}{" "}
             {getCorrectTimeFormat(updatedAt.getHours())}:
             {getCorrectTimeFormat(updatedAt.getMinutes())}:
-            {getCorrectTimeFormat(updatedAt.getSeconds())}
+            {getCorrectTimeFormat(updatedAt.getSeconds())} */}
+            {type}
           </span>
         </div>
         <Button handleClick={handleDelete} size="sm">

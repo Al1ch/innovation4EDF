@@ -8,7 +8,7 @@
     cursor: pointer;
     color: white;
     &.sm{
-        min-width: 75px;
+        min-width: 50px;
     }
     &.md{
         min-width: 200px;
@@ -17,7 +17,7 @@
         background-color: #1e90ff;
     }
     &.white{
-        background-color: #1e90ff;
+        background-color: white;
     }
 }
 

@@ -9,6 +9,7 @@
     padding: 16px;
     gap: 16px;
     border-top: 2px solid $border;
+    
 }
 
 .mainInfoFile{
@@ -21,7 +22,7 @@
     display: grid;
     align-items: center;
     gap: 16px;
-    grid-template-columns: 1fr 1fr 1fr 10px;
+    grid-template-columns: 1fr 1fr 1fr 75px;
 }
 
 .icon{
@@ -30,7 +31,6 @@
     &:hover{
         fill: rgba(233, 44, 44, 0.884);
     }
-    margin-right: 20px;
 }
 
 
