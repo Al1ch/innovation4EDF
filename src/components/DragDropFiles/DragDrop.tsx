@@ -32,7 +32,6 @@ const DragDrop = () => {
         break;
       }
     }
-    console.log("TYPE", type);
     return type;
   };
 
@@ -43,6 +42,7 @@ const DragDrop = () => {
         name: extractedFiles?.name,
         type: type,
         size: extractedFiles?.size,
+        format: extractedFiles?.type,
       };
 
       setFilesInput([...filesInput, files]);
@@ -54,7 +54,6 @@ const DragDrop = () => {
 
   const handleSubmit = () => {
     filesInput.forEach((file) => {
-      console.log("FILE", file);
       addFileData(file, pathName);
     });
     setFilesInput([]);
@@ -82,9 +81,7 @@ const DragDrop = () => {
             }
           });
         }
-        console.log("PDF text", pdfText);
         setTextFile(pdfText);
-        console.log("AFTER");
       };
 
       reader.readAsArrayBuffer(file);
@@ -139,7 +136,9 @@ const DragDrop = () => {
             ))}
         </div>
       </label>
-      <Button type="submit">Upload</Button>
+      <Button type="submit" backgroundColor="blue">
+        Upload
+      </Button>
     </form>
   );
 };

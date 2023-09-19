@@ -16,13 +16,13 @@ const FileListSection = async () => {
         </span>
         <div className={styles.secondaryInfo}>
           <span className={styles.titleCol}>
-            Type <TriangleIcon className={styles.icon} />
+            Format <TriangleIcon className={styles.icon} />
           </span>
           <span className={styles.titleCol}>
             File size <TriangleIcon className={styles.icon} />
           </span>
           <span className={styles.titleCol}>
-            Last modified <TriangleIcon className={styles.icon} />
+            Type <TriangleIcon className={styles.icon} />
           </span>
         </div>
       </div>

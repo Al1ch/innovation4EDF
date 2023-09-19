@@ -8,6 +8,7 @@ export const addFile = async  (file: FileFormat) => {
             size: file.size,
             type: file.type,
             url : "cc",
+            format: file.format
         }
     })
     }catch(e){
