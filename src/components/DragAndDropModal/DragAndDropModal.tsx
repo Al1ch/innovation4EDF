@@ -1,44 +1,38 @@
 "use client";
 
-import React, { ComponentPropsWithoutRef } from "react";
-import * as Dialog from "@radix-ui/react-dialog";
-import { Cross2Icon } from "@radix-ui/react-icons";
+import React, { useEffect, useState } from "react";
 import "./styles.css";
 import styles from "./DragAndDropModal.module.scss";
 import AddIcon from "@/assets/vectors/add.svg";
 import Button from "../Button/Button";
-import UploadIcon from "@/assets/vectors/upload.svg";
 import DragDrop from "../DragDropFiles/DragDrop";
+import CrossIcon from "@/assets/vectors/cross.svg";
 
 const DragAndDropModal = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleClick = () => {
+    setIsOpen((prev) => !prev);
+  };
+
   return (
-    <Dialog.Root>
-      <Dialog.Trigger asChild>
-        <button className="Button violet">
-          Add Files <AddIcon className={styles.icon} />
-        </button>
-      </Dialog.Trigger>
-      <Dialog.Portal>
-        <Dialog.Overlay className="DialogOverlay" />
-        <Dialog.Content className="DialogContent">
-          <DragDrop />
-          <div
-            style={{
-              display: "flex",
-              marginTop: 25,
-              justifyContent: "flex-end",
-            }}
-          >
-            <Dialog.Close asChild></Dialog.Close>
+    <>
+      <button className="Button violet" onClick={handleClick}>
+        Add Files <AddIcon className={styles.icon} />
+      </button>
+      {isOpen && (
+        <div className={styles.container}>
+          <div className={styles.modal}>
+            <div className={styles.header}>
+              <Button onClick={() => setIsOpen(false)} size="sm">
+                <CrossIcon className={styles.icon} />
+              </Button>
+            </div>
+            <DragDrop />
           </div>
-          <Dialog.Close asChild>
-            <button className="IconButton" aria-label="Close">
-              <Cross2Icon />
-            </button>
-          </Dialog.Close>
-        </Dialog.Content>
-      </Dialog.Portal>
-    </Dialog.Root>
+        </div>
+      )}
+    </>
   );
 };
 

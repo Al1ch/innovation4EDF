@@ -8,12 +8,11 @@ type Props = ComponentPropsWithoutRef<"button"> & {
   children: React.ReactNode;
   size?: string;
   backgroundColor?: string;
-  handleClick?: (id: number, pathName: string) => void;
 };
 
 const Button = ({
   children,
-  onChange: handleClick,
+  onClick: handleClick,
   size = "md",
   backgroundColor = "white",
   ...props
@@ -24,7 +23,7 @@ const Button = ({
     <button
       className={cn(styles.container, styles[size], styles[backgroundColor])}
       {...props}
-      onClick={() => handleClick && handleClick(1, pathName)}
+      onClick={handleClick}
     >
       <span className={styles.link}>{children}</span>
     </button>
