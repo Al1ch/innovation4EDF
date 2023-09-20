@@ -1,3 +1,5 @@
+@import "styles/text.module.scss";
+
 .container{
     display: flex;
     justify-content: center;
@@ -7,6 +9,7 @@
     border: none;
     cursor: pointer;
     color: white;
+    font: $text;
     &.sm{
         min-width: 50px;
     }
@@ -15,10 +18,22 @@
     }
     &.blue{
         background-color: #1e90ff;
+        &:hover{
+            background-color: hsl(210, 100%, 50%);
+
+        }
     }
     &.white{
         background-color: white;
+        color: black;
+        &:hover{
+            background-color: rgb(237, 234, 234);
+            transition: ease-in-out 0.2s;
+        }
+
     }
+
+
 }
 
 .container:disabled{
