@@ -12,7 +12,11 @@ import * as pdfjs from "pdfjs-dist";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.10.111/pdf.worker.js`;
 
-const DragDrop = () => {
+type Props = {
+  setIsModalOpen: () => void;
+};
+
+const DragDrop = ({ setIsModalOpen }: Props) => {
   const [filesInput, setFilesInput] = useState<FileFormat[]>([]);
   const [textFile, setTextFile] = useState<string>();
   const [extractedFiles, setExtractedFile] = useState<File>();
@@ -55,6 +59,7 @@ const DragDrop = () => {
       addFileData(file, pathName);
     });
     setFilesInput([]);
+    setIsModalOpen();
     formRef.current?.reset();
   };
 

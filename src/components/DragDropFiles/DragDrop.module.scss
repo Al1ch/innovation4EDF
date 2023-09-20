@@ -1,3 +1,5 @@
+@import "styles/text.module.scss";
+
 .container{
     color: black;
     display: flex;
@@ -9,6 +11,7 @@
 
 .bold{
     font-weight: bold;
+    font: $text;
 }
 
 .fileInput{
