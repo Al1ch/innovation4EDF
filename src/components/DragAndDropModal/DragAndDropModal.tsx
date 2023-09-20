@@ -15,21 +15,20 @@ const DragAndDropModal = () => {
     setIsOpen((prev) => !prev);
   };
 
+  const handleClickOutside = (event: MouseEvent) => {
+    if (modalRef.current && !modalRef.current?.contains(event.target as Node)) {
+      setIsOpen(false);
+    }
+  };
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        modalRef.current &&
-        !modalRef.current?.contains(event.target as Node)
-      ) {
-        setIsOpen(false);
-      }
-    };
+    isOpen
+      ? document.addEventListener("click", handleClickOutside)
+      : document.removeEventListener("click", handleClickOutside);
 
-    document.addEventListener("click", handleClickOutside);
     return () => {
       document.removeEventListener("click", handleClickOutside);
     };
-  }, []);
+  }, [isOpen]);
 
   return (
     <>
