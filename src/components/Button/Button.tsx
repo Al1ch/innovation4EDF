@@ -14,14 +14,16 @@ const Button = ({
   children,
   onClick: handleClick,
   size = "md",
-  backgroundColor = "white",
+  backgroundColor,
   ...props
 }: Props) => {
-  const pathName = usePathname();
-
   return (
     <button
-      className={cn(styles.container, styles[size], styles[backgroundColor])}
+      className={cn(
+        styles.container,
+        styles[size],
+        backgroundColor && styles[backgroundColor]
+      )}
       {...props}
       onClick={handleClick}
     >

@@ -10,6 +10,7 @@
     cursor: pointer;
     color: white;
     font: $text;
+    background-color: white;
     &.sm{
         min-width: 50px;
     }
@@ -24,13 +25,11 @@
         }
     }
     &.white{
-        background-color: white;
         color: black;
         &:hover{
             background-color: rgb(237, 234, 234);
             transition: ease-in-out 0.2s;
         }
-
     }
 
 
