@@ -8,6 +8,8 @@ import React, {
 import styles from "./SearchBar.module.scss";
 import SearchIcon from "@/assets/vectors/search.svg";
 import { useRouter } from "next/navigation";
+import CloseIcon from "@/assets/vectors/close.svg";
+import Button from "@/components/Button/Button";
 
 const SearchBar = () => {
   const [searchValue, setSearchValue] = useState("");
@@ -15,6 +17,11 @@ const SearchBar = () => {
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchValue(event.target.value);
+  };
+
+  const handleDelete = () => {
+    setSearchValue("");
+    router.replace("/");
   };
 
   useEffect(() => {
@@ -41,8 +48,15 @@ const SearchBar = () => {
           className={styles.input}
           onChange={handleChange}
           placeholder="Search Your file "
+          value={searchValue}
         />
       </form>
+
+      {searchValue && (
+        <Button size="sm" onClick={handleDelete}>
+          <CloseIcon className={styles.icon} />
+        </Button>
+      )}
     </div>
   );
 };

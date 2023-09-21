@@ -14,7 +14,11 @@
     &:hover{
         box-shadow:  0 4px 4px $default-shadow  ;
         transition: ease-in-out 0.25s;
+        path{
+            fill: $active-content;
+        }
     }
+    
 }
 
 .input{
