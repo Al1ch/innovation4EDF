@@ -1,9 +1,6 @@
 import React from "react";
 import styles from "./FileDetails.module.scss";
 import FileIcon from "@/assets/vectors/file.svg";
-import Button from "../Button/Button";
-import TrashIcon from "@/assets/vectors/trash.svg";
-import { deleteFileData } from "@/app/_action";
 import DeleteButton from "../DeleteButton/DeleteButton";
 
 type Props = {
@@ -16,13 +13,13 @@ type Props = {
 };
 
 const FileDetails = ({ name, type, size, updatedAt, format, id }: Props) => {
-  const getCorrectTimeFormat = (time?: number) => {
-    if (!time) return;
-    if (time < 10) {
-      return `0${time}`;
-    }
-    return time;
-  };
+  // const getCorrectTimeFormat = (time?: number) => {
+  //   if (!time) return;
+  //   if (time < 10) {
+  //     return `0${time}`;
+  //   }
+  //   return time;
+  // };
 
   return (
     <div className={styles.container}>
