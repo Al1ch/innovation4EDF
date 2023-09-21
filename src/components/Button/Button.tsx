@@ -12,7 +12,6 @@ type Props = ComponentPropsWithoutRef<"button"> & {
 
 const Button = ({
   children,
-  onClick: handleClick,
   size = "md",
   backgroundColor,
   ...props
@@ -25,7 +24,6 @@ const Button = ({
         backgroundColor && styles[backgroundColor]
       )}
       {...props}
-      onClick={handleClick}
     >
       <span className={styles.link}>{children}</span>
     </button>
