@@ -4,18 +4,21 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 12px;
     border-radius: 8px;
     border: none;
     cursor: pointer;
     color: white;
     font: $text;
-    background-color: white;
     &.sm{
-        min-width: 50px;
+        padding: 0;
+        min-width: 20px;
+        background-color: transparent;
+
     }
     &.md{
         min-width: 200px;
+        padding: 12px;
+
     }
     &.blue{
         background-color: #1e90ff;

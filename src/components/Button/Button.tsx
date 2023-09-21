@@ -20,7 +20,7 @@ const Button = ({
     <button
       className={cn(
         styles.container,
-        styles[size],
+        size && styles[size],
         backgroundColor && styles[backgroundColor]
       )}
       {...props}
