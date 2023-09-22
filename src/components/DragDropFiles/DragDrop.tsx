@@ -17,9 +17,10 @@ type Props = {
 };
 
 const DragDrop = ({ setIsModalOpen }: Props) => {
-  const [filesInput, setFilesInput] = useState<FileFormat[]>([]);
-  const [textFile, setTextFile] = useState<string>();
-  const [extractedFiles, setExtractedFile] = useState<File>();
+  const [filesInput, setFilesInput] = useState<FileFormat[] | File[]>([]);
+  const [filesInputWithAllData, setFilesInputWithAllData] = useState<
+    FileFormat[]
+  >([]);
   const formRef = useRef<HTMLFormElement>(null);
 
   const getSecurityTypeOfFile = (text: string) => {
@@ -37,25 +38,10 @@ const DragDrop = ({ setIsModalOpen }: Props) => {
     return type;
   };
 
-  useEffect(() => {
-    if (textFile && extractedFiles) {
-      const type = getSecurityTypeOfFile(textFile);
-      const files = {
-        name: extractedFiles?.name,
-        type: type,
-        size: extractedFiles?.size,
-        format: extractedFiles?.type,
-      };
-
-      setFilesInput([...filesInput, files]);
-      setExtractedFile(undefined);
-    }
-  }, [textFile, extractedFiles, filesInput]);
-
   const pathName = usePathname();
 
   const handleSubmit = () => {
-    filesInput.forEach((file) => {
+    filesInputWithAllData.forEach((file) => {
       addFileData(file, pathName);
     });
     setFilesInput([]);
@@ -84,7 +70,13 @@ const DragDrop = ({ setIsModalOpen }: Props) => {
             }
           });
         }
-        setTextFile(pdfText);
+        const fileData = {
+          name: file.name,
+          format: file.type,
+          size: file.size,
+          type: getSecurityTypeOfFile(pdfText),
+        };
+        setFilesInputWithAllData((prev) => [...prev, fileData]);
       };
 
       reader.readAsArrayBuffer(file);
@@ -102,10 +94,12 @@ const DragDrop = ({ setIsModalOpen }: Props) => {
   };
 
   const handleDrop = async (event: React.DragEvent<HTMLFormElement>) => {
+    const listOfFiles = Array.from(event.dataTransfer.files);
+    setFilesInput(listOfFiles);
+    listOfFiles.forEach(async (file) => {
+      await extractFileFromDoc(file);
+    });
     event.stopPropagation();
-    setExtractedFile(event.dataTransfer.files[0]);
-    await extractFileFromDoc(event.dataTransfer.files[0]);
-
     event.preventDefault();
   };
 
