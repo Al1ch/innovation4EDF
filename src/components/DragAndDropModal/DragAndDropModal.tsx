@@ -32,7 +32,7 @@ const DragAndDropModal = () => {
 
   return (
     <>
-      <Button onClick={handleClick} backgroundColor="white">
+      <Button onClick={handleClick} backgroundColor="blue">
         Add Files <AddIcon className={styles.icon} />
       </Button>
       {isOpen && (

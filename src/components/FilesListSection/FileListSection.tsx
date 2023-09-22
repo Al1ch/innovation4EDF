@@ -18,8 +18,6 @@ const FileListSection = async ({
 
   const filteredProject = searchParam ? fileListFilteredBySearch : filesList;
 
-  console.log("fileListFilteredBySearch", fileListFilteredBySearch);
-
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>Files List</h2>

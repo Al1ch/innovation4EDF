@@ -15,10 +15,10 @@ const Sidebar = () => {
         <Image src={edf} alt="Logo" width={40} height={40} />
         <h2 className={styles.title}>Innovation4EDF</h2>
       </div>
-      <Button backgroundColor="blue">
+      {/* <Button backgroundColor="blue">
         <DocumentSVG className={styles.logo} />
         <p className={styles.text}>Files</p>
-      </Button>
+      </Button> */}
       <DragAndDropModal />
     </div>
   );
