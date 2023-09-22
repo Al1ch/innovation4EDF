@@ -32,7 +32,7 @@ const FileDetails = ({ name, type, size, updatedAt, format, id }: Props) => {
           <span className={styles.details}>{format.split("/")[1]}</span>
         </div>
         <div className={styles.size}>
-          <span className={styles.details}>{size}MB</span>
+          <span className={styles.details}>{size}ko</span>
         </div>
         <div className={styles.date}>
           <span className={styles.details}>

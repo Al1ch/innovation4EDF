@@ -73,7 +73,7 @@ const DragDrop = ({ setIsModalOpen }: Props) => {
         const fileData = {
           name: file.name,
           format: file.type,
-          size: file.size,
+          size: file.size / 1024,
           type: getSecurityTypeOfFile(pdfText),
         };
         setFilesInputWithAllData((prev) => [...prev, fileData]);
