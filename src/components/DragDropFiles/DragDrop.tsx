@@ -50,62 +50,48 @@ const DragDrop = ({ setIsModalOpen }: Props) => {
     formRef.current?.reset();
   };
 
-  const extractDocxContent = async (file: File) => {
-    try {
-      const reader = new FileReader();
+  const getContentFromPDF = async (buffer: ArrayBuffer) => {
+    let pdfContent = "";
+    const pdfData = new Uint8Array(buffer);
 
-      reader.onload = async (e) => {
-        try {
-          const arrayBuffer = e.target?.result as ArrayBuffer;
-          const wordText = await mammoth.extractRawText({ arrayBuffer });
-          console.log("Contenu extrait du fichier DOCX : ", wordText.value);
-          const fileData = {
-            name: file.name,
-            format: "docx", // ca affiche pas bizzare ?
-            size: file.size / 1024,
-            type: getSecurityTypeOfFile(wordText.value),
-          };
-          setFilesInputWithAllData((prev) => [...prev, fileData]);
-        } catch (error) {
-          console.error(
-            "Erreur lors de l'extraction du contenu du fichier DOCX : ",
-            error
-          );
+    const pdf = await pdfjs.getDocument(pdfData).promise;
+
+    for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+      const page = await pdf.getPage(pageNum);
+      const pageText = await page.getTextContent();
+
+      pageText.items.forEach((textItem) => {
+        if ("str" in textItem) {
+          pdfContent += textItem.str;
         }
-      };
-
-      reader.readAsArrayBuffer(file);
-    } catch (error) {
-      console.error("Erreur lors de la lecture du fichier DOCX : ", error);
+      });
     }
+    return pdfContent;
   };
 
   const extractFileFromDoc = async (file: File) => {
     try {
       const reader = new FileReader();
+      let docText = "";
+      let type = file.type;
 
       reader.onload = async (e) => {
-        let pdfText = "";
-
-        const arrayBuffer = e.target?.result;
-        const pdfData = new Uint8Array(arrayBuffer as ArrayBuffer);
-        const pdf = await pdfjs.getDocument(pdfData).promise;
-
-        for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
-          const page = await pdf.getPage(pageNum);
-          const pageText = await page.getTextContent();
-
-          pageText.items.forEach((textItem) => {
-            if ("str" in textItem) {
-              pdfText += textItem.str;
-            }
-          });
+        const arrayBuffer = e.target?.result as ArrayBuffer;
+        if (file.type === "application/pdf") {
+          docText = await getContentFromPDF(arrayBuffer);
+        } else if (
+          file.type ===
+          "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+        ) {
+          docText = (await mammoth.extractRawText({ arrayBuffer })).value;
+          type = "docx";
         }
+
         const fileData = {
           name: file.name,
-          format: file.type,
+          format: type,
           size: file.size / 1024,
-          type: getSecurityTypeOfFile(pdfText),
+          type: getSecurityTypeOfFile(docText),
         };
         setFilesInputWithAllData((prev) => [...prev, fileData]);
       };
@@ -128,14 +114,7 @@ const DragDrop = ({ setIsModalOpen }: Props) => {
     const listOfFiles = Array.from(event.dataTransfer.files);
     setFilesInput(listOfFiles);
     listOfFiles.forEach(async (file) => {
-      if (file.type === "application/pdf") {
-        await extractFileFromDoc(file);
-      } else if (
-        file.type ===
-        "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-      ) {
-        await extractDocxContent(file);
-      }
+      await extractFileFromDoc(file);
     });
 
     event.stopPropagation();
