@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import styles from "./DragDrop.module.scss";
 import UploadIcon from "@/assets/vectors/upload.svg";
 import Button from "../Button/Button";
@@ -9,6 +9,7 @@ import { addFileData } from "@/app/_action";
 import { FileFormat } from "@/model";
 import { usePathname } from "next/navigation";
 import * as pdfjs from "pdfjs-dist";
+import mammoth from "mammoth";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.10.111/pdf.worker.js`;
 
@@ -47,6 +48,36 @@ const DragDrop = ({ setIsModalOpen }: Props) => {
     setFilesInput([]);
     setIsModalOpen();
     formRef.current?.reset();
+  };
+
+  const extractDocxContent = async (file: File) => {
+    try {
+      const reader = new FileReader();
+
+      reader.onload = async (e) => {
+        try {
+          const arrayBuffer = e.target?.result as ArrayBuffer;
+          const wordText = await mammoth.extractRawText({ arrayBuffer });
+          console.log("Contenu extrait du fichier DOCX : ", wordText.value);
+          const fileData = {
+            name: file.name,
+            format: "docx", // ca affiche pas bizzare ?
+            size: file.size / 1024,
+            type: getSecurityTypeOfFile(wordText.value),
+          };
+          setFilesInputWithAllData((prev) => [...prev, fileData]);
+        } catch (error) {
+          console.error(
+            "Erreur lors de l'extraction du contenu du fichier DOCX : ",
+            error
+          );
+        }
+      };
+
+      reader.readAsArrayBuffer(file);
+    } catch (error) {
+      console.error("Erreur lors de la lecture du fichier DOCX : ", error);
+    }
   };
 
   const extractFileFromDoc = async (file: File) => {
@@ -97,8 +128,16 @@ const DragDrop = ({ setIsModalOpen }: Props) => {
     const listOfFiles = Array.from(event.dataTransfer.files);
     setFilesInput(listOfFiles);
     listOfFiles.forEach(async (file) => {
-      await extractFileFromDoc(file);
+      if (file.type === "application/pdf") {
+        await extractFileFromDoc(file);
+      } else if (
+        file.type ===
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+      ) {
+        await extractDocxContent(file);
+      }
     });
+
     event.stopPropagation();
     event.preventDefault();
   };
