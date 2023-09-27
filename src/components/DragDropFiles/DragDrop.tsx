@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { ChangeEvent, useRef, useState } from "react";
 import styles from "./DragDrop.module.scss";
 import UploadIcon from "@/assets/vectors/upload.svg";
 import Button from "../Button/Button";
@@ -8,8 +8,9 @@ import FileIcon from "@/assets/vectors/file.svg";
 import { addFileData } from "@/app/_action";
 import { FileFormat } from "@/model";
 import { usePathname } from "next/navigation";
-import * as pdfjs from "pdfjs-dist";
 import mammoth from "mammoth";
+import * as XLSX from "xlsx";
+import * as pdfjs from "pdfjs-dist";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.10.111/pdf.worker.js`;
 
@@ -27,7 +28,7 @@ const DragDrop = ({ setIsModalOpen }: Props) => {
   const getSecurityTypeOfFile = (text: string) => {
     const regexs = [
       { regex: /(?=.*prénom)(?=.*nom)(?=.*numéro)/i, type: "private" },
-      { regex: /(?=.*CA)(?=.*Siret)/, type: "business" },
+      { regex: /(?=.*CA)(?=.*Siret)/i, type: "business" },
     ];
     let type = "";
     for (const regex of regexs) {
@@ -50,9 +51,8 @@ const DragDrop = ({ setIsModalOpen }: Props) => {
     formRef.current?.reset();
   };
 
-  const getContentFromPDF = async (buffer: ArrayBuffer) => {
+  const getContentFromPDF = async (pdfData: Uint8Array) => {
     let pdfContent = "";
-    const pdfData = new Uint8Array(buffer);
 
     const pdf = await pdfjs.getDocument(pdfData).promise;
 
@@ -77,14 +77,23 @@ const DragDrop = ({ setIsModalOpen }: Props) => {
 
       reader.onload = async (e) => {
         const arrayBuffer = e.target?.result as ArrayBuffer;
+        const data = new Uint8Array(arrayBuffer);
+
         if (file.type === "application/pdf") {
-          docText = await getContentFromPDF(arrayBuffer);
+          docText = await getContentFromPDF(data);
         } else if (
           file.type ===
           "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
         ) {
           docText = (await mammoth.extractRawText({ arrayBuffer })).value;
           type = "docx";
+        } else {
+          const workbook = XLSX.read(data, { type: "array" });
+          const sheetName = workbook.SheetNames[0];
+          const sheet = workbook.Sheets[sheetName];
+          const excelData = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+          docText = excelData.join("");
+          type = "xlsx";
         }
 
         const fileData = {
@@ -103,6 +112,15 @@ const DragDrop = ({ setIsModalOpen }: Props) => {
         error
       );
     }
+  };
+  const handleClickInput = (event: ChangeEvent<HTMLInputElement>) => {
+    const listOfFiles = event.target.files
+      ? Array.from(event.target.files)
+      : [];
+    setFilesInput(listOfFiles);
+    listOfFiles.forEach(async (file) => {
+      await extractFileFromDoc(file);
+    });
   };
 
   const handleDrag = (event: React.DragEvent<HTMLFormElement>) => {
@@ -134,6 +152,8 @@ const DragDrop = ({ setIsModalOpen }: Props) => {
         id="inputFileUpload"
         name="inputFileUpload"
         type="file"
+        accept=".xlsx, .pdf, .docx"
+        onChange={handleClickInput}
       />
       <label htmlFor="inputFileUpload" className={styles.label}>
         <UploadIcon className={styles.icon} />
@@ -151,7 +171,11 @@ const DragDrop = ({ setIsModalOpen }: Props) => {
             ))}
         </div>
       </label>
-      <Button type="submit" backgroundColor="blue">
+      <Button
+        type="submit"
+        disabled={filesInput.length === 0}
+        backgroundColor="blue"
+      >
         Upload
       </Button>
     </form>
