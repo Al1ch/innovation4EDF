@@ -14,14 +14,17 @@ const Button = ({
   children,
   size = "md",
   backgroundColor,
+  disabled = false,
   ...props
 }: Props) => {
   return (
     <button
+      disabled={disabled}
       className={cn(
         styles.container,
         size && styles[size],
-        backgroundColor && styles[backgroundColor]
+        backgroundColor && styles[backgroundColor],
+        { [styles.disabled]: disabled }
       )}
       {...props}
     >
