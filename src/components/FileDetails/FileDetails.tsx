@@ -1,7 +1,9 @@
 import React from "react";
 import styles from "./FileDetails.module.scss";
-import FileIcon from "@/assets/vectors/file.svg";
 import DeleteButton from "../DeleteButton/DeleteButton";
+import PdfIcon from "@/assets/vectors/pdf.svg";
+import WordIcon from "@/assets/vectors/word.svg";
+import ExcelIcon from "@/assets/vectors/excel.svg";
 
 type Props = {
   id: number;
@@ -21,15 +23,23 @@ const FileDetails = ({ name, type, size, updatedAt, format, id }: Props) => {
   //   return time;
   // };
 
+  const fileTypeIcon = {
+    pdf: <PdfIcon className={styles.icon} />,
+    docx: <WordIcon className={styles.icon} />,
+    xlsx: <ExcelIcon className={styles.icon} />,
+  };
+
+  console.log("TYPE ", format);
+
   return (
     <div className={styles.container}>
       <div className={styles.mainInfoFile}>
-        <FileIcon className={styles.icon} />
+        {fileTypeIcon[format as keyof typeof fileTypeIcon]}
         <span className={styles.name}>{name}</span>
       </div>
       <div className={styles.infoContainer}>
         <div className={styles.type}>
-          <span className={styles.details}>{format.split("/")[1]}</span>
+          <span className={styles.details}>{format}</span>
         </div>
         <div className={styles.size}>
           <span className={styles.details}>{size}ko</span>

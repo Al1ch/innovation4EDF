@@ -81,6 +81,7 @@ const DragDrop = ({ setIsModalOpen }: Props) => {
 
         if (file.type === "application/pdf") {
           docText = await getContentFromPDF(data);
+          type = "pdf";
         } else if (
           file.type ===
           "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
