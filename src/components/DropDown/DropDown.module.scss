@@ -1,0 +1,51 @@
+@import "styles/text.module.scss";
+
+.dropDown{
+    position: absolute;
+    top:  100%;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    background-color: rgb(253, 248, 248);
+    transform: translate(-10px, 9px);
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
+    width: 25%;
+    left: 0;
+}
+
+.dropDownItem{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: $text;
+    font: $details;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    &:hover{
+        background-color: lightgray;
+    }
+}
+
+.titleCol{
+    position: relative;
+    display: flex;
+    align-items: center;
+    
+}
+
+.title{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: $text;
+    font: $details;
+    width: fit-content;
+}
+
+
+.icon{
+    height: 14px;
+    width:14px;
+    transform: rotate(180deg);
+}

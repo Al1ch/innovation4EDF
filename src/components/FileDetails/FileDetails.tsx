@@ -15,21 +15,11 @@ type Props = {
 };
 
 const FileDetails = ({ name, type, size, updatedAt, format, id }: Props) => {
-  // const getCorrectTimeFormat = (time?: number) => {
-  //   if (!time) return;
-  //   if (time < 10) {
-  //     return `0${time}`;
-  //   }
-  //   return time;
-  // };
-
   const fileTypeIcon = {
     pdf: <PdfIcon className={styles.icon} />,
     docx: <WordIcon className={styles.icon} />,
     xlsx: <ExcelIcon className={styles.icon} />,
   };
-
-  console.log("TYPE ", format);
 
   return (
     <div className={styles.container}>

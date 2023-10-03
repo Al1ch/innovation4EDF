@@ -14,7 +14,7 @@
     transform: rotate(180deg);
 }
 
-.titleCol{
+.title{
     display: flex;
     align-items: center;
     gap: 8px;
@@ -22,10 +22,7 @@
     font: $details;
 }
 
-.title{
-    font: $details;
 
-}
 
 .headerList{
     display: grid;

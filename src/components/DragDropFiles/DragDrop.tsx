@@ -88,13 +88,28 @@ const DragDrop = ({ setIsModalOpen }: Props) => {
         ) {
           docText = (await mammoth.extractRawText({ arrayBuffer })).value;
           type = "docx";
-        } else {
+        } else if (
+          file.type ===
+          "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        ) {
           const workbook = XLSX.read(data, { type: "array" });
           const sheetName = workbook.SheetNames[0];
           const sheet = workbook.Sheets[sheetName];
           const excelData = XLSX.utils.sheet_to_json(sheet, { header: 1 });
           docText = excelData.join("");
           type = "xlsx";
+        } else if (
+          file.type ===
+          "application/vnd.openxmlformats-officedocument.presentationml.presentation"
+        ) {
+          try {
+            const result = await mammoth.extractRawText({ arrayBuffer });
+            const text = result.value;
+
+            // Utilisez "text" comme vous le souhaitez dans votre application React
+          } catch (error) {
+            console.error(error);
+          }
         }
 
         const fileData = {
@@ -118,6 +133,7 @@ const DragDrop = ({ setIsModalOpen }: Props) => {
     const listOfFiles = event.target.files
       ? Array.from(event.target.files)
       : [];
+
     setFilesInput(listOfFiles);
     listOfFiles.forEach(async (file) => {
       await extractFileFromDoc(file);

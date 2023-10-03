@@ -1,15 +1,11 @@
 "use client";
-import React, {
-  ChangeEvent,
-  FormEventHandler,
-  useEffect,
-  useState,
-} from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import styles from "./SearchBar.module.scss";
 import SearchIcon from "@/assets/vectors/search.svg";
 import { useRouter } from "next/navigation";
 import CloseIcon from "@/assets/vectors/close.svg";
 import Button from "@/components/Button/Button";
+import { useParams } from "next/navigation";
 
 const SearchBar = () => {
   const [searchValue, setSearchValue] = useState("");

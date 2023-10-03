@@ -1,8 +1,9 @@
-import React, { useMemo } from "react";
+import React from "react";
 import styles from "./FileListSection.module.scss";
 import FileDetails from "../FileDetails/FileDetails";
 import TriangleIcon from "@/assets/vectors/triangle.svg";
 import prisma from "../../../lib/prisma";
+import DropDown from "../DropDown/DropDown";
 
 const FileListSection = async ({
   searchParams,
@@ -22,19 +23,25 @@ const FileListSection = async ({
     <div className={styles.container}>
       <h2 className={styles.title}>Files List</h2>
       <div className={styles.headerList}>
-        <span className={styles.titleCol}>
+        <span className={styles.title}>
           Name <TriangleIcon className={styles.icon} />
         </span>
         <div className={styles.secondaryInfo}>
-          <span className={styles.titleCol}>
-            Format <TriangleIcon className={styles.icon} />
-          </span>
-          <span className={styles.titleCol}>
-            File size <TriangleIcon className={styles.icon} />
-          </span>
-          <span className={styles.titleCol}>
-            Type <TriangleIcon className={styles.icon} />
-          </span>
+          <DropDown
+            title="Format"
+            list={[".pdf", ".docx", ".xlsx"]}
+            searchParams={searchParams}
+          />
+          <DropDown
+            title="File Size"
+            list={[".pdf", ".docx", ".xlsx"]}
+            searchParams={searchParams}
+          />
+          <DropDown
+            title="Type"
+            list={[".pdf", ".docx", ".xlsx"]}
+            searchParams={searchParams}
+          />
         </div>
       </div>
       {filteredProject.map((file) => (
