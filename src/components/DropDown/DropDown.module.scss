@@ -9,17 +9,18 @@
     background-color: rgb(253, 248, 248);
     transform: translate(-10px, 9px);
     box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
-    width: 25%;
-    left: 0;
+    min-width: 100%;
+    align-self: flex-end;
 }
 
 .dropDownItem{
     display: flex;
+    flex-direction: column;
     align-items: center;
     gap: 8px;
     color: $text;
     font: $details;
-    padding: 8px 16px;
+    padding: 8px ;
     border-radius: 4px;
     cursor: pointer;
     &:hover{
@@ -28,7 +29,6 @@
 }
 
 .titleCol{
-    position: relative;
     display: flex;
     align-items: center;
     
@@ -48,4 +48,14 @@
     height: 14px;
     width:14px;
     transform: rotate(180deg);
+}
+
+.filterTitle{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+    gap: 8px;
+    position: relative;
+    min-width: fit-content;
 }

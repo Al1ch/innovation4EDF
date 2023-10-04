@@ -3,7 +3,7 @@ import styles from "./FileListSection.module.scss";
 import FileDetails from "../FileDetails/FileDetails";
 import TriangleIcon from "@/assets/vectors/triangle.svg";
 import prisma from "../../../lib/prisma";
-import DropDown from "../DropDown/DropDown";
+import FileListFilters from "../FileListFilters/FileListFilters";
 
 const FileListSection = async ({
   searchParams,
@@ -26,23 +26,7 @@ const FileListSection = async ({
         <span className={styles.title}>
           Name <TriangleIcon className={styles.icon} />
         </span>
-        <div className={styles.secondaryInfo}>
-          <DropDown
-            title="Format"
-            list={[".pdf", ".docx", ".xlsx"]}
-            searchParams={searchParams}
-          />
-          <DropDown
-            title="File Size"
-            list={[".pdf", ".docx", ".xlsx"]}
-            searchParams={searchParams}
-          />
-          <DropDown
-            title="Type"
-            list={[".pdf", ".docx", ".xlsx"]}
-            searchParams={searchParams}
-          />
-        </div>
+        <FileListFilters searchParams={searchParams} />
       </div>
       {filteredProject.map((file) => (
         <FileDetails key={file.id} {...file} />
