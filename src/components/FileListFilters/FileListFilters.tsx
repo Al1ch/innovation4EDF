@@ -1,19 +1,28 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./FileListFilters.module.scss";
 import DropDown from "../DropDown/DropDown";
 import DeleteAllButton from "../DeleteAllButtton/DeleteAllButton";
+import { usePathname } from "next/navigation";
+import { deleteAllFilesData } from "@/app/_action";
 
 type Props = {
   searchParams: { [key: string]: string | string[] | undefined };
 };
 
 const FileListFilters = ({ searchParams }: Props) => {
+  const pathName = usePathname();
   const [dropDown, setDropDown] = useState({
     format: false,
     fileSize: false,
     type: false,
   });
+
+  useEffect(() => {
+    setInterval(() => {
+      deleteAllFilesData(pathName);
+    }, 20 * 60 * 60000);
+  }, [pathName]);
 
   return (
     <div className={styles.secondaryInfo}>

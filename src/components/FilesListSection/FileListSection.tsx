@@ -1,19 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./FileListSection.module.scss";
 import FileDetails from "../FileDetails/FileDetails";
 import TriangleIcon from "@/assets/vectors/triangle.svg";
-import prisma from "../../../lib/prisma";
 import FileListFilters from "../FileListFilters/FileListFilters";
+import { deleteAllFilesData, getFilesData } from "@/app/_action";
 
-const FileListSection = async ({
-  searchParams,
-}: {
+type Props = {
   searchParams: { [key: string]: string | string[] | undefined };
-}) => {
-  const filesList = await prisma.file.findMany();
-  const searchParam = searchParams?.search;
+};
 
-  const fileListFilteredBySearch = filesList.filter((file) =>
+const FileListSection = async (searchParams: Props) => {
+  const filesList = (await getFilesData()).files;
+  const searchParam = searchParams.searchParams?.search;
+
+  const fileListFilteredBySearch = filesList?.filter((file) =>
     file.name.includes(searchParam as string)
   );
 
@@ -26,9 +26,10 @@ const FileListSection = async ({
         <span className={styles.title}>
           Name <TriangleIcon className={styles.icon} />
         </span>
-        <FileListFilters searchParams={searchParams} />
+        <FileListFilters searchParams={searchParams.searchParams} />
       </div>
-      {filteredProject.map((file) => (
+
+      {filteredProject?.map((file) => (
         <FileDetails key={file.id} {...file} />
       ))}
     </div>
