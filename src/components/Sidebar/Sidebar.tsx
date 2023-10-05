@@ -13,7 +13,7 @@ const Sidebar = () => {
     <div className={styles.container}>
       <div className={styles.header}>
         <Image src={edf} alt="Logo" width={40} height={40} />
-        <h2 className={styles.title}>Innovation4EDF</h2>
+        <h2 className={styles.title}>Joconde</h2>
       </div>
       {/* <Button backgroundColor="blue">
         <DocumentSVG className={styles.logo} />
