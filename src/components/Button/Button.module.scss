@@ -1,4 +1,5 @@
 @import "styles/text.module.scss";
+@import "styles/color.module.scss";
 
 .container{
     display: flex;
@@ -16,7 +17,11 @@
 
     }
     &.md{
-        min-width: 200px;
+        padding: 12px;
+
+    }
+    &.lg{
+        min-width: 175px;
         padding: 12px;
 
     }
@@ -32,6 +37,12 @@
         &:hover{
             background-color: rgb(237, 234, 234);
             transition: ease-in-out 0.2s;
+        }
+    }
+    &.red{
+        background-color: $red;
+        &:hover{
+            background-color: hsla(0, 100%, 50%, 0.808);
         }
     }
     &.disabled{

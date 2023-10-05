@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import styles from "./FileListFilters.module.scss";
 import DropDown from "../DropDown/DropDown";
+import DeleteAllButton from "../DeleteAllButtton/DeleteAllButton";
 
 type Props = {
   searchParams: { [key: string]: string | string[] | undefined };
@@ -41,6 +42,7 @@ const FileListFilters = ({ searchParams }: Props) => {
         onClick={() => setDropDown((prev) => ({ ...prev, type: !prev.type }))}
         isClicked={dropDown.type}
       />
+      <DeleteAllButton />
     </div>
   );
 };

@@ -41,3 +41,11 @@ export const deleteFile = async(fileId:number)=>{
         return {error:e}
     }
 }
+
+export const deleteAllFiles = async() =>{
+    try{
+        await prisma.file.deleteMany()
+    }catch(e){
+        return {error:e}
+    }
+}
