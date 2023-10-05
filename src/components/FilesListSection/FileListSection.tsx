@@ -23,7 +23,7 @@ const FileListSection = async (searchParams: Props) => {
     <div className={styles.container}>
       <h2 className={styles.title}>Files List</h2>
       <div className={styles.headerList}>
-        <span className={styles.title}>
+        <span className={styles.info}>
           Name <TriangleIcon className={styles.icon} />
         </span>
         <FileListFilters searchParams={searchParams.searchParams} />

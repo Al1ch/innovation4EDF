@@ -1,0 +1,20 @@
+@import 'styles/text.module.scss';
+@import 'styles/color.module.scss';
+
+.container{
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.title{
+    color: black;
+    font: $title;
+}
+
+.fileList{
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}

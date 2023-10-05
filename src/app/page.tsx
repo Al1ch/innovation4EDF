@@ -2,6 +2,7 @@ import styles from "./page.module.scss";
 import SearchBar from "@/components/SearchBar/SearchBar";
 import FileListSection from "@/components/FilesListSection/FileListSection";
 import Sidebar from "@/components/Sidebar/Sidebar";
+import RecentFilesSection from "@/components/RecentFilesSection.tsx/RecentFilesSection";
 
 export default function Home({
   searchParams,
@@ -15,7 +16,10 @@ export default function Home({
         <div className={styles.header}>
           <SearchBar />
         </div>
-        <FileListSection searchParams={searchParams} />
+        <div className={styles.body}>
+          <RecentFilesSection />
+          <FileListSection searchParams={searchParams} />
+        </div>
       </div>
     </div>
   );

@@ -3,7 +3,6 @@
 
 .container{
     width: 100%;
-    padding: 2rem;
     display: flex;
     flex-direction: column;
 }
@@ -19,9 +18,15 @@
     align-items: center;
     gap: 8px;
     color: $text;
-    font: $details;
+    font: $title;
 }
 
+.info{
+    font: $details;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
 
 
 .headerList{
@@ -31,7 +36,6 @@
     width: 100%;
     gap: 16px;
     padding: 8px 16px;
-    margin-top: 32px;
 
 }
 

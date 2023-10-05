@@ -98,22 +98,10 @@ const DragDrop = ({ setIsModalOpen }: Props) => {
           const excelData = XLSX.utils.sheet_to_json(sheet, { header: 1 });
           docText = excelData.join("");
           type = "xlsx";
-        } else if (
-          file.type ===
-          "application/vnd.openxmlformats-officedocument.presentationml.presentation"
-        ) {
-          try {
-            const result = await mammoth.extractRawText({ arrayBuffer });
-            const text = result.value;
-
-            // Utilisez "text" comme vous le souhaitez dans votre application React
-          } catch (error) {
-            console.error(error);
-          }
         }
 
         const fileData = {
-          name: file.name,
+          name: `${file.name}_${getSecurityTypeOfFile(docText)}`,
           format: type,
           size: file.size / 1024,
           type: getSecurityTypeOfFile(docText),
