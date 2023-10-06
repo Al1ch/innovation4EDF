@@ -32,6 +32,14 @@
 
         }
     }
+    &.gray{
+        background-color: $gray;
+        &:hover{
+            background-color: rgb(229, 229, 247);
+
+        }
+        color: black;
+    }
     &.white{
         color: black;
         &:hover{
