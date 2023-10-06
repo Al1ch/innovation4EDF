@@ -8,13 +8,19 @@ const RecentFilesSection = async () => {
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>Recent Files</h2>
-      <div className={styles.fileList}>
-        {filesList
-          ?.slice(filesList.length - 5, filesList.length)
-          .map((file, index) => (
-            <FileCard key={index} {...file} />
-          ))}
-      </div>
+      {filesList?.length === 0 ? (
+        <div className={styles.empty}>
+          <h3>No files for the moment</h3>
+        </div>
+      ) : (
+        <div className={styles.fileList}>
+          {filesList
+            ?.slice(filesList.length - 5, filesList.length)
+            .map((file, index) => (
+              <FileCard key={index} {...file} />
+            ))}
+        </div>
+      )}
     </div>
   );
 };
