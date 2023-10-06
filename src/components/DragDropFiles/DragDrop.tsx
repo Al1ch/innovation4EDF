@@ -100,8 +100,12 @@ const DragDrop = ({ setIsModalOpen }: Props) => {
           type = "xlsx";
         }
 
+        const fileName = `${file.name.split(".")[0]}_${getSecurityTypeOfFile(
+          docText
+        )}`;
+
         const fileData = {
-          name: `${file.name}_${getSecurityTypeOfFile(docText)}`,
+          name: fileName,
           format: type,
           size: file.size / 1024,
           type: getSecurityTypeOfFile(docText),
