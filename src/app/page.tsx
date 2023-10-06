@@ -3,6 +3,7 @@ import SearchBar from "@/components/SearchBar/SearchBar";
 import FileListSection from "@/components/FilesListSection/FileListSection";
 import Sidebar from "@/components/Sidebar/Sidebar";
 import RecentFilesSection from "@/components/RecentFilesSection.tsx/RecentFilesSection";
+import DragAndDropModal from "@/components/DragAndDropModal/DragAndDropModal";
 
 export default function Home({
   searchParams,
@@ -17,6 +18,12 @@ export default function Home({
           <SearchBar />
         </div>
         <div className={styles.body}>
+          <div className={styles.features}>
+            <h1 className={styles.title}>Joconde</h1>
+            <div className={styles.buttonContainer}>
+              <DragAndDropModal />
+            </div>
+          </div>
           <RecentFilesSection />
           <FileListSection searchParams={searchParams} />
         </div>
