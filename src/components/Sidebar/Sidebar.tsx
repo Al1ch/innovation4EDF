@@ -6,7 +6,7 @@ import Button from "@/components/Button/Button";
 import Link from "next/link";
 import DocumentSVG from "@/assets/vectors/document.svg";
 import DragDrop from "@/components/DragDropFiles/DragDrop";
-import DragAndDropModal from "../DragAndDropModal/DragAndDropModal";
+import Modal from "../Modal/Modal";
 
 const Sidebar = () => {
   return (
@@ -15,11 +15,6 @@ const Sidebar = () => {
         <Image src={edf} alt="Logo" width={40} height={40} />
         <h2 className={styles.title}>Joconde</h2>
       </div>
-      {/* <Button backgroundColor="blue">
-        <DocumentSVG className={styles.logo} />
-        <p className={styles.text}>Files</p>
-      </Button> */}
-      <DragAndDropModal />
     </div>
   );
 };

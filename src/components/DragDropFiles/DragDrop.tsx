@@ -127,8 +127,8 @@ const DragDrop = ({ setIsModalOpen }: Props) => {
       : [];
 
     setFilesInput(listOfFiles);
-    listOfFiles.forEach(async (file) => {
-      await extractFileFromDoc(file);
+    listOfFiles.forEach((file) => {
+      extractFileFromDoc(file);
     });
   };
 
@@ -140,8 +140,8 @@ const DragDrop = ({ setIsModalOpen }: Props) => {
   const handleDrop = async (event: React.DragEvent<HTMLFormElement>) => {
     const listOfFiles = Array.from(event.dataTransfer.files);
     setFilesInput(listOfFiles);
-    listOfFiles.forEach(async (file) => {
-      await extractFileFromDoc(file);
+    listOfFiles.forEach((file) => {
+      extractFileFromDoc(file);
     });
 
     event.stopPropagation();

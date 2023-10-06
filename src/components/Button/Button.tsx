@@ -1,7 +1,6 @@
 "use client";
 import React, { ComponentPropsWithoutRef } from "react";
 import styles from "./Button.module.scss";
-import { usePathname } from "next/navigation";
 import cn from "classnames";
 
 type Props = ComponentPropsWithoutRef<"button"> & {
