@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styles from "./FileListSection.module.scss";
 import FileDetails from "../FileDetails/FileDetails";
 import TriangleIcon from "@/assets/vectors/triangle.svg";
 import FileListFilters from "../FileListFilters/FileListFilters";
-import { deleteAllFilesData, getFilesData } from "@/app/_action";
+import { getFilesData } from "@/app/_action";
 
 type Props = {
   searchParams: { [key: string]: string | string[] | undefined };

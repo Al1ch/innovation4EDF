@@ -3,8 +3,6 @@ import SearchBar from "@/components/SearchBar/SearchBar";
 import FileListSection from "@/components/FilesListSection/FileListSection";
 import Sidebar from "@/components/Sidebar/Sidebar";
 import RecentFilesSection from "@/components/RecentFilesSection.tsx/RecentFilesSection";
-import Modal from "@/components/Modal/Modal";
-import DragDrop from "@/components/DragDropFiles/DragDrop";
 import DragAndDropModal from "@/components/DragAndDropModal/DragAndDropModal";
 
 export default function Home({

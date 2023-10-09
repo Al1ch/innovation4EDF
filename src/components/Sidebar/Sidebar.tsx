@@ -7,6 +7,7 @@ import Link from "next/link";
 import DocumentSVG from "@/assets/vectors/document.svg";
 import DragDrop from "@/components/DragDropFiles/DragDrop";
 import Modal from "../Modal/Modal";
+import ModalIntroducing from "../ModalIntroducing/ModalIntroducing";
 
 const Sidebar = () => {
   return (
@@ -15,6 +16,7 @@ const Sidebar = () => {
         <Image src={edf} alt="Logo" width={40} height={40} />
         <h2 className={styles.title}>Joconde</h2>
       </div>
+      <ModalIntroducing />
     </div>
   );
 };

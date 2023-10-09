@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState, ReactNode } from "react";
+import React, { useEffect, useRef, ReactNode } from "react";
 import styles from "./Modal.module.scss";
 import AddIcon from "@/assets/vectors/add.svg";
 import Button from "../Button/Button";
@@ -10,17 +10,28 @@ type Props = {
   isOpen: boolean;
   children: ReactNode;
   handleModal: () => void;
+  showButton?: boolean;
+  buttonModal: React.JSX.Element;
 };
 
-const Modal = ({ isOpen, children, handleModal }: Props) => {
+const Modal = ({
+  isOpen,
+  children,
+  handleModal,
+  showButton = false,
+  buttonModal: ButtonModal,
+}: Props) => {
   const modalRef = useRef<HTMLDivElement>(null);
 
-  const handleClickOutside = (event: MouseEvent) => {
-    if (modalRef.current && !modalRef.current?.contains(event.target as Node)) {
-      handleModal();
-    }
-  };
   useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        modalRef.current &&
+        !modalRef.current?.contains(event.target as Node)
+      ) {
+        handleModal();
+      }
+    };
     isOpen
       ? document.addEventListener("click", handleClickOutside)
       : document.removeEventListener("click", handleClickOutside);
@@ -28,14 +39,11 @@ const Modal = ({ isOpen, children, handleModal }: Props) => {
     return () => {
       document.removeEventListener("click", handleClickOutside);
     };
-  }, [isOpen]);
+  }, [isOpen, handleModal]);
 
   return (
     <>
-      <Button onClick={handleModal} backgroundColor="blue" size="md">
-        <AddIcon className={styles.icon} />
-        <span className={styles.label}>Add Files</span>{" "}
-      </Button>
+      {showButton && ButtonModal}
       {isOpen && (
         <div className={styles.container}>
           <div className={styles.modal} ref={modalRef}>
