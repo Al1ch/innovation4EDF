@@ -33,9 +33,9 @@
         }
     }
     &.gray{
-        background-color: $gray;
+        background-color: rgb(229, 229, 247);
         &:hover{
-            background-color: rgb(229, 229, 247);
+            background-color: $gray;
 
         }
         color: black;

@@ -8,6 +8,7 @@ import FileIcon from "@/assets/vectors/file.svg";
 import { addFileData } from "@/app/_action";
 import { FileFormat } from "@/model";
 import { usePathname } from "next/navigation";
+import { ref } from "config/firebase";
 import mammoth from "mammoth";
 import * as XLSX from "xlsx";
 import * as pdfjs from "pdfjs-dist";
@@ -19,11 +20,19 @@ type Props = {
 };
 
 const DragDrop = ({ setIsModalOpen }: Props) => {
+  const [error, setError] = useState(false);
   const [filesInput, setFilesInput] = useState<FileFormat[] | File[]>([]);
   const [filesInputWithAllData, setFilesInputWithAllData] = useState<
     FileFormat[]
   >([]);
   const formRef = useRef<HTMLFormElement>(null);
+
+  const format = {
+    "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
+      "docx",
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": "xlsx",
+    "application/pdf": "pdf",
+  };
 
   const getSecurityTypeOfFile = (text: string) => {
     const regexs = [
@@ -139,8 +148,22 @@ const DragDrop = ({ setIsModalOpen }: Props) => {
 
   const handleDrop = async (event: React.DragEvent<HTMLFormElement>) => {
     const listOfFiles = Array.from(event.dataTransfer.files);
-    setFilesInput(listOfFiles);
-    listOfFiles.forEach((file) => {
+
+    const listOfFilesFilteredByFormat = listOfFiles.filter(
+      (file) =>
+        format[file.type as keyof typeof format].includes("pdf") ||
+        format[file.type as keyof typeof format].includes("docx") ||
+        format[file.type as keyof typeof format].includes("xlsx")
+    );
+
+    if (listOfFilesFilteredByFormat.length !== listOfFiles.length) {
+      setError(true);
+    } else {
+      setError(false);
+    }
+
+    setFilesInput(listOfFilesFilteredByFormat);
+    listOfFilesFilteredByFormat.forEach((file) => {
       extractFileFromDoc(file);
     });
 
@@ -179,6 +202,11 @@ const DragDrop = ({ setIsModalOpen }: Props) => {
               </span>
             ))}
         </div>
+        {error && (
+          <span className={styles.error}>
+            Seul les fichier .docx .pdf .xlsx sont acceptés
+          </span>
+        )}
       </label>
       <Button
         type="submit"
