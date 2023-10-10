@@ -7,8 +7,8 @@ export const addFile = async  (file: FileFormat) => {
             name: file.name,
             size: file.size,
             type: file.type,
-            url : "cc",
-            format: file.format
+            url : file.url,
+            format: file.format || ''
         }
     })
     }catch(e){
@@ -27,6 +27,18 @@ export const getFiles = async () => {
     }catch(e){
         return {error:e}
 
+    }
+}
+
+export const getFile = async(fileId:number)=>{
+    try{
+        const file = await prisma.file.findUnique({
+            where:{
+                id:fileId
+            }
+        })
+    } catch(e){
+        return {error:e}
     }
 }
 
