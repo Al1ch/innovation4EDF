@@ -8,10 +8,12 @@ import FileIcon from "@/assets/vectors/file.svg";
 import { addFileData } from "@/app/_action";
 import { FileFormat } from "@/model";
 import { usePathname } from "next/navigation";
-import { ref } from "config/firebase";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import mammoth from "mammoth";
 import * as XLSX from "xlsx";
 import * as pdfjs from "pdfjs-dist";
+import { storage } from "@/config/firebase";
+import { doc } from "firebase/firestore/lite";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.10.111/pdf.worker.js`;
 
@@ -23,7 +25,7 @@ const DragDrop = ({ setIsModalOpen }: Props) => {
   const [error, setError] = useState(false);
   const [filesInput, setFilesInput] = useState<FileFormat[] | File[]>([]);
   const [filesInputWithAllData, setFilesInputWithAllData] = useState<
-    FileFormat[]
+    FileFormat[] | File[]
   >([]);
   const formRef = useRef<HTMLFormElement>(null);
 
@@ -51,9 +53,19 @@ const DragDrop = ({ setIsModalOpen }: Props) => {
 
   const pathName = usePathname();
 
-  const handleSubmit = () => {
-    filesInputWithAllData.forEach((file) => {
-      addFileData(file, pathName);
+  const handleSubmit = async () => {
+    filesInputWithAllData.forEach(async (file) => {
+      const storageRef = ref(storage, `files/${file.name}`);
+      let docEndPoint = "";
+      try {
+        await uploadBytes(storageRef, file as File);
+        docEndPoint = await getDownloadURL(storageRef);
+      } catch (e) {
+        console.log(e);
+      }
+      let fileFormat: FileFormat = { ...file, url: docEndPoint };
+      addFileData(fileFormat as FileFormat, pathName);
+      console.log("file 1 ", fileFormat);
     });
     setFilesInput([]);
     setIsModalOpen();
@@ -119,7 +131,7 @@ const DragDrop = ({ setIsModalOpen }: Props) => {
           size: file.size / 1024,
           type: getSecurityTypeOfFile(docText),
         };
-        setFilesInputWithAllData((prev) => [...prev, fileData]);
+        setFilesInputWithAllData((prev) => [...prev, fileData] as FileFormat[]);
       };
 
       reader.readAsArrayBuffer(file);

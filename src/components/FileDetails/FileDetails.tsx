@@ -4,6 +4,7 @@ import DeleteButton from "../DeleteButton/DeleteButton";
 import PdfIcon from "@/assets/vectors/pdf.svg";
 import WordIcon from "@/assets/vectors/word.svg";
 import ExcelIcon from "@/assets/vectors/excel.svg";
+import DownloadButton from "../DownloadButton/DownloadButton";
 
 type Props = {
   id: number;
@@ -12,9 +13,10 @@ type Props = {
   size: number;
   updatedAt: Date;
   format: string;
+  url: string;
 };
 
-const FileDetails = ({ name, type, size, updatedAt, format, id }: Props) => {
+const FileDetails = ({ name, type, size, format, id, url }: Props) => {
   const fileTypeIcon = {
     pdf: <PdfIcon className={styles.icon} />,
     docx: <WordIcon className={styles.icon} />,
@@ -35,17 +37,10 @@ const FileDetails = ({ name, type, size, updatedAt, format, id }: Props) => {
           <span className={styles.details}>{size}ko</span>
         </div>
         <div className={styles.date}>
-          <span className={styles.details}>
-            {/* {getCorrectTimeFormat(updatedAt.getDay())}/
-            {getCorrectTimeFormat(updatedAt.getMonth())}/
-            {updatedAt.getFullYear()}{" "}
-            {getCorrectTimeFormat(updatedAt.getHours())}:
-            {getCorrectTimeFormat(updatedAt.getMinutes())}:
-            {getCorrectTimeFormat(updatedAt.getSeconds())} */}
-            {type}
-          </span>
+          <span className={styles.details}>{type}</span>
         </div>
         <DeleteButton fileId={id} />
+        <DownloadButton url={url} />
       </div>
     </div>
   );
