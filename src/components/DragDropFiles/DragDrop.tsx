@@ -13,7 +13,6 @@ import mammoth from "mammoth";
 import * as XLSX from "xlsx";
 import * as pdfjs from "pdfjs-dist";
 import { storage } from "@/config/firebase";
-import { doc } from "firebase/firestore/lite";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.10.111/pdf.worker.js`;
 
@@ -24,6 +23,7 @@ type Props = {
 const DragDrop = ({ setIsModalOpen }: Props) => {
   const [error, setError] = useState(false);
   const [filesInput, setFilesInput] = useState<FileFormat[] | File[]>([]);
+  const [filesTest, setFilesTest] = useState<File[]>([]);
   const [filesInputWithAllData, setFilesInputWithAllData] = useState<
     FileFormat[] | File[]
   >([]);
@@ -54,19 +54,21 @@ const DragDrop = ({ setIsModalOpen }: Props) => {
   const pathName = usePathname();
 
   const handleSubmit = async () => {
-    filesInputWithAllData.forEach(async (file) => {
-      const storageRef = ref(storage, `files/${file.name}`);
+    for (let i = 0; i < filesTest.length; i++) {
+      const storageRef = ref(storage, `files/${filesTest[i].name}`);
       let docEndPoint = "";
       try {
-        await uploadBytes(storageRef, file as File);
+        await uploadBytes(storageRef, filesTest[i] as File);
         docEndPoint = await getDownloadURL(storageRef);
+        addFileData(
+          { ...filesInputWithAllData[i], url: docEndPoint },
+          pathName
+        );
       } catch (e) {
         console.log(e);
       }
-      let fileFormat: FileFormat = { ...file, url: docEndPoint };
-      addFileData(fileFormat as FileFormat, pathName);
-      console.log("file 1 ", fileFormat);
-    });
+    }
+
     setFilesInput([]);
     setIsModalOpen();
     formRef.current?.reset();
@@ -147,6 +149,8 @@ const DragDrop = ({ setIsModalOpen }: Props) => {
       ? Array.from(event.target.files)
       : [];
 
+    setFilesTest(listOfFiles);
+
     setFilesInput(listOfFiles);
     listOfFiles.forEach((file) => {
       extractFileFromDoc(file);
@@ -173,6 +177,8 @@ const DragDrop = ({ setIsModalOpen }: Props) => {
     } else {
       setError(false);
     }
+
+    setFilesTest(listOfFiles);
 
     setFilesInput(listOfFilesFilteredByFormat);
     listOfFilesFilteredByFormat.forEach((file) => {

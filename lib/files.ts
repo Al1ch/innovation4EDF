@@ -1,6 +1,6 @@
 import prisma from "./prisma"
 import { FileFormat } from "@/model"
-export const addFile = async  (file: FileFormat) => {
+export const addFile = async  (file: FileFormat ) => {
     try{
        await prisma.file.create({
         data:{
@@ -8,7 +8,7 @@ export const addFile = async  (file: FileFormat) => {
             size: file.size,
             type: file.type,
             url : file.url,
-            format: file.format || ''
+            format: file.format ?? ''
         }
     })
     }catch(e){
@@ -37,6 +37,7 @@ export const getFile = async(fileId:number)=>{
                 id:fileId
             }
         })
+        return {file}
     } catch(e){
         return {error:e}
     }
