@@ -5,12 +5,14 @@ import DropDown from "../DropDown/DropDown";
 import DeleteAllButton from "../DeleteAllButtton/DeleteAllButton";
 import { usePathname } from "next/navigation";
 import { deleteAllFilesData } from "@/app/_action";
+import { File } from "@prisma/client";
 
 type Props = {
   searchParams: { [key: string]: string | string[] | undefined };
+  filesList?: File[];
 };
 
-const FileListFilters = ({ searchParams }: Props) => {
+const FileListFilters = ({ searchParams, filesList }: Props) => {
   const pathName = usePathname();
   const [dropDown, setDropDown] = useState({
     format: false,
@@ -51,7 +53,7 @@ const FileListFilters = ({ searchParams }: Props) => {
         onClick={() => setDropDown((prev) => ({ ...prev, type: !prev.type }))}
         isClicked={dropDown.type}
       />
-      <DeleteAllButton />
+      <DeleteAllButton filesList={filesList} />
     </div>
   );
 };

@@ -39,7 +39,7 @@ const FileDetails = ({ name, type, size, format, id, url }: Props) => {
         <div className={styles.date}>
           <span className={styles.details}>{type}</span>
         </div>
-        <DeleteButton fileId={id} />
+        <DeleteButton fileId={id} fileName={name} type={type} format={format} />
         <DownloadButton url={url} />
       </div>
     </div>

@@ -8,11 +8,14 @@ import { usePathname } from "next/navigation";
 
 type Props = {
   fileId: number;
+  fileName: string;
+  format: string;
+  type: string;
 };
 
-const DeleteButton = ({ fileId }: Props) => {
+const DeleteButton = ({ fileId, fileName, format, type }: Props) => {
   const handleDelete = async (fileId: number, pathName: string) => {
-    await deleteFileData(fileId, pathName);
+    await deleteFileData({ fileId, fileName, format, type }, pathName);
   };
   const pathName = usePathname();
 

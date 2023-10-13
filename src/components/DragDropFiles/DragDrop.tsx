@@ -58,7 +58,7 @@ const DragDrop = ({ setIsModalOpen }: Props) => {
       const storageRef = ref(storage, `files/${filesTest[i].name}`);
       let docEndPoint = "";
       try {
-        await uploadBytes(storageRef, filesTest[i] as File);
+        await uploadBytes(storageRef, filesTest[i]);
         docEndPoint = await getDownloadURL(storageRef);
         addFileData(
           { ...filesInputWithAllData[i], url: docEndPoint },

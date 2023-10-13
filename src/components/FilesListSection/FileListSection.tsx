@@ -26,7 +26,10 @@ const FileListSection = async (searchParams: Props) => {
         <span className={styles.info}>
           Name <TriangleIcon className={styles.icon} />
         </span>
-        <FileListFilters searchParams={searchParams.searchParams} />
+        <FileListFilters
+          searchParams={searchParams.searchParams}
+          filesList={filesList}
+        />
       </div>
 
       {filteredProject?.map((file) => (

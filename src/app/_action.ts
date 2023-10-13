@@ -2,6 +2,16 @@
 import { revalidatePath } from "next/cache";
 import { addFile, deleteFile, deleteAllFiles, getFiles, getFile } from "../../lib/files";
 import { FileFormat } from "@/model"
+import { storage } from "@/config/firebase";
+import { deleteObject, ref } from "firebase/storage";
+
+type  FileData = {
+    fileId: number,
+    fileName : string,
+    type: string,
+    format: string
+}
+ 
 
 export const addFileData = async (file : FileFormat , pathName: string) => {
     try{
@@ -14,9 +24,16 @@ export const addFileData = async (file : FileFormat , pathName: string) => {
     }
 }
 
-export const deleteFileData = async (fileId: number, pathName: string) => {
+export const deleteFileData = async (fileInfo : FileData, pathName: string) => {
+    const {fileId, fileName, type, format} = fileInfo;
     try{
         await deleteFile(fileId);
+        const fileRef = ref(
+            storage,
+            `files/${fileName.split(type)[0]}.${format}`
+          );
+      
+          await deleteObject(fileRef);
         revalidatePath(pathName)
     }
     catch(e){  
