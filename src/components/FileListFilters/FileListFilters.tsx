@@ -32,7 +32,7 @@ const FileListFilters = ({ searchParams, filesList }: Props) => {
         );
         deleteObject(storageRef);
       });
-    }, 20 * 6000);
+    }, 20 * 60 * 1000);
   }, [pathName, filesList]);
 
   return (
