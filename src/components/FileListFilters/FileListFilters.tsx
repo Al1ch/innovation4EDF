@@ -6,6 +6,8 @@ import DeleteAllButton from "../DeleteAllButtton/DeleteAllButton";
 import { usePathname } from "next/navigation";
 import { deleteAllFilesData } from "@/app/_action";
 import { File } from "@prisma/client";
+import { storage } from "@/config/firebase";
+import { ref, deleteObject } from "firebase/storage";
 
 type Props = {
   searchParams: { [key: string]: string | string[] | undefined };
@@ -23,8 +25,15 @@ const FileListFilters = ({ searchParams, filesList }: Props) => {
   useEffect(() => {
     setInterval(() => {
       deleteAllFilesData(pathName);
-    }, 20 * 60 * 60000);
-  }, [pathName]);
+      filesList?.forEach((file) => {
+        const storageRef = ref(
+          storage,
+          `files/${file.name.split(file.type)[0]}.${file.format}`
+        );
+        deleteObject(storageRef);
+      });
+    }, 20 * 6000);
+  }, [pathName, filesList]);
 
   return (
     <div className={styles.secondaryInfo}>
