@@ -28,13 +28,13 @@ export const deleteFileData = async (fileInfo : FileData, pathName: string) => {
     const {fileId, fileName, type, format} = fileInfo;
     try{
         await deleteFile(fileId);
+        revalidatePath(pathName)
         const fileRef = ref(
             storage,
             `files/${fileName.split(type)[0]}.${format}`
           );
       
           await deleteObject(fileRef);
-        revalidatePath(pathName)
     }
     catch(e){  
         return {error:e}
