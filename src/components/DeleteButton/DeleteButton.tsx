@@ -5,6 +5,8 @@ import TrashIcon from "@/assets/vectors/trash.svg";
 import styles from "./DeleteButton.module.scss";
 import { deleteFileData } from "@/app/_action";
 import { usePathname } from "next/navigation";
+import { storage } from "@/config/firebase";
+import { deleteObject, ref } from "firebase/storage";
 
 type Props = {
   fileId: number;
@@ -15,7 +17,12 @@ type Props = {
 
 const DeleteButton = ({ fileId, fileName, format, type }: Props) => {
   const handleDelete = async (fileId: number, pathName: string) => {
-    await deleteFileData({ fileId, fileName, format, type }, pathName);
+    const fileRef = ref(
+      storage,
+      `files/${fileName.split(`_${type}`)[0]}.${format}`
+    );
+    await deleteObject(fileRef);
+    deleteFileData({ fileId, fileName, format, type }, pathName);
   };
   const pathName = usePathname();
 

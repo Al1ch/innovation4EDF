@@ -14,7 +14,6 @@ export const DownloadButton = ({ url }: Props) => {
     link.download = "Example File";
     link.href = url;
     link.click();
-    console.log("download");
   };
   return (
     <Button backgroundColor="white" size="md" onClick={handleDownload}>

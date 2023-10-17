@@ -17,14 +17,13 @@ const DeleteAllButton = async ({ filesList }: Props) => {
 
   const handleDeleteAll = async () => {
     filesList?.map(async (file) => {
+      await deleteAllFilesData(pathName);
       const fileRef = ref(
         storage,
-        `files/${file.name.split(file.type)[0]}.${file.format}`
+        `files/${file.name.split(`_${file.type}`)[0]}.${file.format}`
       );
       await deleteObject(fileRef);
     });
-
-    await deleteAllFilesData(pathName);
   };
 
   return (
