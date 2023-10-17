@@ -2,7 +2,6 @@
 
 import React, { useEffect, useRef, ReactNode } from "react";
 import styles from "./Modal.module.scss";
-import AddIcon from "@/assets/vectors/add.svg";
 import Button from "../Button/Button";
 import CrossIcon from "@/assets/vectors/cross.svg";
 

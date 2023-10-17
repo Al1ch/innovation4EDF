@@ -14,11 +14,13 @@ const RecentFilesSection = async () => {
         </div>
       ) : (
         <div className={styles.fileList}>
-          {filesList
-            ?.slice(filesList.length - 3, filesList.length)
-            .map((file, index) => (
-              <FileCard key={index} {...file} />
-            ))}
+          {filesList && filesList.length < 3
+            ? filesList?.map((file, index) => (
+                <FileCard key={index} {...file} />
+              ))
+            : filesList
+                ?.slice(filesList.length - 3, filesList.length)
+                .map((file, index) => <FileCard key={index} {...file} />)}
         </div>
       )}
     </div>
