@@ -24,7 +24,7 @@ const FileListFilters = ({ searchParams, filesList }: Props) => {
 
   useEffect(() => {
     setInterval(() => {
-      deleteAllFilesData(pathName);
+      filesList && deleteAllFilesData(pathName);
       filesList?.forEach((file) => {
         const storageRef = ref(
           storage,
