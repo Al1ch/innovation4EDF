@@ -54,21 +54,38 @@ const DragDrop = ({ setIsModalOpen }: Props) => {
   const pathName = usePathname();
 
   const handleSubmit = async () => {
+    const filetestSortedBySize = filesTest.sort((a, b) => a.size - b.size);
+    const filesInputWithAllDataSortedBySize = filesInputWithAllData.sort(
+      (a, b) => a.size - b.size
+    );
+
+    console.log("Filestest sorted", filetestSortedBySize);
+    console.log("FileInput sorted", filesInputWithAllDataSortedBySize);
     for (let i = 0; i < filesTest.length; i++) {
-      const storageRef = ref(storage, `files/${filesTest[i].name}`);
+      const storageRef = ref(storage, `files/${filetestSortedBySize[i].name}`);
       let docEndPoint = "";
       try {
-        await uploadBytes(storageRef, filesTest[i]);
+        await uploadBytes(storageRef, filetestSortedBySize[i]);
         docEndPoint = await getDownloadURL(storageRef);
+
+        console.log(
+          "FILE CONTENT ",
+          filesTest[i],
+          "Test",
+          filesInputWithAllData[0]
+        );
+
         addFileData(
-          { ...filesInputWithAllData[i], url: docEndPoint },
+          {
+            ...filesInputWithAllDataSortedBySize[i],
+            url: docEndPoint,
+          },
           pathName
         );
       } catch (e) {
         console.log(e);
       }
     }
-
     setFilesInput([]);
     setIsModalOpen();
     formRef.current?.reset();
