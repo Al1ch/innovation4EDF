@@ -12,7 +12,7 @@ const DragAndDropModal = () => {
   const button = (
     <Button onClick={() => setIsOpen(!isOpen)} backgroundColor="blue" size="md">
       <AddIcon className={styles.icon} />
-      <span className={styles.label}>Add Files</span>
+      <span className={styles.label}>Ajouter des fichiers</span>
     </Button>
   );
   return (

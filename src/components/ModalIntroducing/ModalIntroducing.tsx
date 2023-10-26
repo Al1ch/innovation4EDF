@@ -10,7 +10,7 @@ const ModalIntroducing = () => {
 
   const button = (
     <Button onClick={() => setIsOpen(!isOpen)} backgroundColor="gray" size="lg">
-      <span className={styles.label}>Project Info</span>
+      <span className={styles.label}>{"Objectif de l'outil"}</span>
     </Button>
   );
   return (

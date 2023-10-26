@@ -7,10 +7,10 @@ const RecentFilesSection = async () => {
   const filesList = (await getFilesData()).files;
   return (
     <div className={styles.container}>
-      <h2 className={styles.title}>Recent Files</h2>
+      <h2 className={styles.title}>Fichiers Récents</h2>
       {filesList?.length === 0 ? (
         <div className={styles.empty}>
-          <h3>No files for the moment</h3>
+          <h3>Aucun fichier pour le moment</h3>
         </div>
       ) : (
         <div className={styles.fileList}>

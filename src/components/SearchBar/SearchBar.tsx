@@ -43,7 +43,7 @@ const SearchBar = () => {
           type="text"
           className={styles.input}
           onChange={handleChange}
-          placeholder="Search Your file "
+          placeholder="Rechercher un fichier "
           value={searchValue}
         />
       </form>

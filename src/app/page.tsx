@@ -19,7 +19,7 @@ export default function Home({
         </div>
         <div className={styles.body}>
           <div className={styles.features}>
-            <h1 className={styles.title}>Joconde</h1>
+            <h1 className={styles.title}>Mes Fichiers</h1>
             <div className={styles.buttonContainer}>
               <DragAndDropModal />
             </div>

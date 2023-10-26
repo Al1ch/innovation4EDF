@@ -47,7 +47,7 @@ const FileListFilters = ({ searchParams, filesList }: Props) => {
         isClicked={dropDown.format}
       />
       <DropDown
-        title="File Size"
+        title="Taille"
         list={[".pdf", ".docx", ".xlsx"]}
         searchParams={searchParams}
         onClick={() =>
