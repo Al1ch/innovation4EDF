@@ -8,6 +8,7 @@ import DocumentSVG from "@/assets/vectors/document.svg";
 import DragDrop from "@/components/DragDropFiles/DragDrop";
 import Modal from "../Modal/Modal";
 import ModalIntroducing from "../ModalIntroducing/ModalIntroducing";
+import Minutor from "../Minutor/Minutor";
 
 const Sidebar = () => {
   return (
@@ -17,6 +18,7 @@ const Sidebar = () => {
         <h2 className={styles.title}>Joconde</h2>
       </div>
       <ModalIntroducing />
+      <Minutor />
     </div>
   );
 };

@@ -32,7 +32,7 @@ const DeleteAllButton = async ({ filesList }: Props) => {
       backgroundColor="red"
       onClick={async () => await handleDeleteAll()}
     >
-      <span className={styles.buttonLabel}>Tout Supprimer</span>
+      <span className={styles.buttonLabel}>Supprimer</span>
     </Button>
   );
 };
