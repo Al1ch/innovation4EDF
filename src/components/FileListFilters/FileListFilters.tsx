@@ -24,7 +24,7 @@ const FileListFilters = ({ searchParams, filesList }: Props) => {
 
   useEffect(() => {
     setInterval(() => {
-      filesList && deleteAllFilesData(pathName);
+      deleteAllFilesData(pathName);
       filesList?.forEach((file) => {
         const storageRef = ref(
           storage,
@@ -62,6 +62,7 @@ const FileListFilters = ({ searchParams, filesList }: Props) => {
         onClick={() => setDropDown((prev) => ({ ...prev, type: !prev.type }))}
         isClicked={dropDown.type}
       />
+      <span></span>
       <DeleteAllButton filesList={filesList} />
     </div>
   );
