@@ -3,12 +3,16 @@ import React, { useEffect, useState } from "react";
 import style from "./Minutor.module.scss";
 
 const Minutor = () => {
-  const [minutes, setMinutes] = useState(20);
-  const [seconds, setSeconds] = useState(0);
+  const [minutes, setMinutes] = useState(19);
+  const [seconds, setSeconds] = useState(59);
 
   useEffect(() => {
     if (seconds <= 0) {
       setMinutes(minutes - 1);
+      setSeconds(59);
+    }
+    if (minutes <= 0) {
+      setMinutes(19);
       setSeconds(59);
     }
 
