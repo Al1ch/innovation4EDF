@@ -2,7 +2,9 @@
 
 .secondaryInfo{
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 100px;
+    grid-template-columns: 1fr 1fr 1fr 75px 100px;
+    gap: 8px;
+    
 }
 
 .buttonLabel{
