@@ -20,3 +20,10 @@ model File {
   format    String
   type      String
 }
+
+model User {
+  username String @unique
+  id       Int    @id @default(autoincrement())
+  email    String @unique
+  password String
+}
