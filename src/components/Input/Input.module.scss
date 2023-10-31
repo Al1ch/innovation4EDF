@@ -1,0 +1,19 @@
+@import 'styles/text.module.scss';
+
+.input{
+    padding: 8px;
+    border: 1px solid #bdc7d4;
+    border-radius: 4px;
+    outline: none;
+    background-color: white;
+    max-width: 400px;
+}
+
+.label{
+    font: $label;
+}
+
+.inputContainer{
+    display: flex;
+    flex-direction: column;
+}
