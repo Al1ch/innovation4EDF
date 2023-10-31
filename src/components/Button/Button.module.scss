@@ -21,9 +21,13 @@
 
     }
     &.lg{
-        min-width: 175px;
+        min-width: 200px;
         padding: 12px;
 
+    }
+    &.xl{
+        width: 100%;
+        padding: 12px;
     }
     &.blue{
         background-color: #1e90ff;
@@ -45,6 +49,14 @@
         background-color: rgba(255, 255, 255, 0.986);
         &:hover{
             background-color: rgb(237, 234, 234);
+            transition: ease-in-out 0.2s;
+        }
+    }
+    &.black{
+        color: white;
+        background-color: rgba(0, 0, 0, 0.918);
+        &:hover{
+            background-color: rgba(0, 0, 0, 0.817);
             transition: ease-in-out 0.2s;
         }
     }

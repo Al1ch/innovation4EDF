@@ -5,8 +5,8 @@ import cn from "classnames";
 
 type Props = ComponentPropsWithoutRef<"button"> & {
   children: React.ReactNode;
-  size?: "sm" | "md" | "lg";
-  backgroundColor?: "blue" | "white" | "red" | "gray";
+  size?: "sm" | "md" | "lg" | "xl";
+  backgroundColor?: "blue" | "white" | "red" | "gray" | "black";
 };
 
 const Button = ({
