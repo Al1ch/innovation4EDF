@@ -17,6 +17,7 @@
     "clean": "rm -rf node_modules **/node_modules && rm -rf yarn.lock **/yarn.lock && yarn cache clean && yarn install"
   },
   "dependencies": {
+    "@hookform/resolvers": "^3.3.2",
     "@prisma/client": "^5.2.0",
     "@types/node": "^20.4.2",
     "@types/react": "^18.2.18",
@@ -34,9 +35,11 @@
     "pdfjs-dist": "^3.10.111",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-hook-form": "^7.47.0",
     "sass": "^1.63.4",
     "typescript": "^5.1.6",
-    "xlsx": "^0.18.5"
+    "xlsx": "^0.18.5",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@svgr/webpack": "^8.0.1",
